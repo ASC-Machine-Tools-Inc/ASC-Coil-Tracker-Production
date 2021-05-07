@@ -1,0 +1,62 @@
+﻿@model ASC_Coil_Tracker_Production.Models.COILTABLEHISTORY
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-sm">
+            <dl class="row dl-horizontal">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DATE)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DATE)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.AMOUNTUSED)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.AMOUNTUSED)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.USEDFOR)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.USEDFOR)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.MACHINEUSEDIN)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.MACHINEUSEDIN)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.NOTES)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.NOTES)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<p>
+    <span class="btn-group" role="group">
+        <a href="@Url.Action("Edit", new { id=Model.ID })" class="btn btn-outline-primary">
+            <i class="fas fa-edit"></i>
+            Edit
+        </a>
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+            Back to List
+        </a>
+    </span>
+</p>

@@ -1,0 +1,91 @@
+﻿@model  ASC_Coil_Tracker_Production.Models.COILTABLE
+
+@{
+    ViewBag.Title = "Print";
+}
+
+<h2>Print Coil</h2>
+<!--TODO: remove this line once print confirmation message implemented-->
+<h3><i>Only click print once - otherwise it will print multiple!</i></h3>
+
+<div>
+    <hr />
+    <dl class="row dl-horizontal">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.COLOR)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.COLOR)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TYPE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TYPE)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GAUGE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GAUGE)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.THICK)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.THICK)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WEIGHT)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WEIGHT)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LENGTH)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LENGTH)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NOTES)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NOTES)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JOBNUMBER)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JOBNUMBER)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <span class="btn-group" role="group">
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                    Back to List
+                </a>
+                <input type="submit" value="Print" class="btn btn-primary" />
+            </span>
+        </div>
+    }
+</div>

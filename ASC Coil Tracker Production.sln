@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASC Coil Tracker Production", "ASC Coil Tracker Production\ASC Coil Tracker Production.csproj", "{B89EBCE9-8D28-4917-8CF3-9CC175584EBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B89EBCE9-8D28-4917-8CF3-9CC175584EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B89EBCE9-8D28-4917-8CF3-9CC175584EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B89EBCE9-8D28-4917-8CF3-9CC175584EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B89EBCE9-8D28-4917-8CF3-9CC175584EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {609D4587-241B-4128-B344-4B5A69C85BF7}
+	EndGlobalSection
+EndGlobal

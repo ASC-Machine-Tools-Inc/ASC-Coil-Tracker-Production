@@ -1,0 +1,126 @@
+﻿@model  ASC_Coil_Tracker_Production.Models.COILTABLE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-sm">
+            <dl class="row dl-horizontal">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.ID)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.ID)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.COLOR)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.COLOR)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.TYPE)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.TYPE)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.GAUGE)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.GAUGE)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.THICK)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.THICK)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.WEIGHT)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.WEIGHT)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.LENGTH)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.LENGTH)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.NOTES)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.NOTES)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.JOBNUMBER)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.JOBNUMBER)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm">
+            <h2>History</h2>
+            <a href="@Url.Action("Create", "HistoryEvent", new { coilID = Model.ID })" class="btn btn-primary my-2">
+                <i class="fas fa-plus"></i>
+                Create New History Record
+            </a>
+            <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Amount Used</th>
+                    <th>Used For</th>
+                    <th>Machine Used In</th>
+                    <th>Notes</th>
+                </tr>
+                @foreach (var item in Model.COILTABLEHISTORY)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DATE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AMOUNTUSED)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.USEDFOR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MACHINEUSEDIN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NOTES)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+<p>
+    <span class="btn-group" role="group">
+        <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+            Back to List
+        </a>
+        <a href="@Url.Action("Edit", new { id=Model.ID })" class="btn btn-outline-primary">
+            <i class="fas fa-edit"></i>
+            Edit
+        </a>
+    </span>
+</p>

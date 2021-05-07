@@ -1,0 +1,117 @@
+﻿@model PagedList.IPagedList<ASC_Coil_Tracker_Production.Models.COILTABLE>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <a href="@Url.Action("Create")" class="btn btn-primary mb-1">
+            <i class="fas fa-plus"></i>
+            Create New Coil Record
+        </a>
+    </div>
+    <div class="col-md-6">
+        @using (Html.BeginForm("Index", "Coil", FormMethod.Get, new { @class = "form-inline justify-content-end" }))
+        {
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Find by job #" })
+            <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+            </button>
+        }
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().COLOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().TYPE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().GAUGE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().LENGTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
+        </th>
+        <th>
+            @Html.ActionLink("Job #", "Index", new { sortOrder = ViewBag.JobSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COLOR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GAUGE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.THICK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WEIGHT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LENGTH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOTES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JOBNUMBER)
+            </td>
+            <td>
+                <span class="btn-group d-flex" role="group">
+                    <a href="@Url.Action("Print", new { id=item.ID })" class="btn btn-outline-primary">
+                        <i class="fas fa-print"></i>
+                        Print
+                    </a>
+                    <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-outline-primary">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </a>
+                    <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-outline-primary">
+                        <i class="fas fa-info-circle"></i>
+                        Details
+                    </a>
+                    <a href="@Url.Action("Delete", new { id=item.ID })" class="btn btn-outline-primary">
+                        <i class="fas fa-trash"></i>
+                        Delete
+                    </a>
+                </span>
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
