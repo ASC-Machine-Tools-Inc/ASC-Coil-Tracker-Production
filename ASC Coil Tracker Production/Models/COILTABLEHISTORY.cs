@@ -13,6 +13,7 @@ namespace ASC_Coil_Tracker_Production.Models
 
         [Column(TypeName = "smalldatetime")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Date")]
         public DateTime DATE { get; set; }
 
         [Display(Name = "Amount Used")]
