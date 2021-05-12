@@ -34,15 +34,15 @@ namespace ASC_Coil_Tracker_Production.Models
         [Display(Name = "Gauge")]
         public string GAUGE { get; set; }
 
-        [Display(Name = "Thickness")]
+        [Display(Name = "Thickness (in)")]
         [Range(0.001, 1.000, ErrorMessage = "Enter a thickness between 0.000 and 1.000")]
         public double THICK { get; set; }
 
-        [Display(Name = "Weight")]
+        [Display(Name = "Weight (lbs)")]
         [Range(0.000, 100000.000, ErrorMessage = "Enter a weight between 0.000 and 100000.000")]
         public double WEIGHT { get; set; }
 
-        [Display(Name = "Length")]
+        [Display(Name = "Length (ft)")]
         [Range(0.001, 100000.000, ErrorMessage = "Enter a length between 0.000 and 100000.000")]
         public double LENGTH { get; set; }
 
