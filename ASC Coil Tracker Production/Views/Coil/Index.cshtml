@@ -16,7 +16,13 @@
     <div class="col-md-6">
         @using (Html.BeginForm("Index", "Coil", FormMethod.Get, new { @class = "form-inline justify-content-end" }))
         {
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Find by job #" })
+            @Html.DropDownList("SearchFilter", new List<SelectListItem>
+               {
+                   new SelectListItem { Text = "Job number", Value = "JOBNUMBER", Selected=true },
+                   new SelectListItem { Text = "Gauge", Value = "GAUGE" }
+               },
+               new { @class = "custom-select mx-2" })
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
             <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
             </button>
@@ -27,7 +33,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("ID", "Index", new {sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter})
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().COLOR)

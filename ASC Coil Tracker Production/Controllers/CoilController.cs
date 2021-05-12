@@ -19,7 +19,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
         private CoilContext db = new CoilContext();
 
         // GET: Coil
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString,
+            string searchFilter, string currentSearchFilter, int? page)
         {
             /* Default: sort by ID desc
              * This lets the user sort by ID asc or job asc, ID desc
@@ -29,6 +30,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_asc" : "";
             ViewBag.JobSortParm = sortOrder == "Job #" ? "job_desc" : "Job #";
 
+            // Reset page to 1 if new search string - otherwise, keep filter
             if (searchString != null)
             {
                 page = 1;
@@ -39,13 +41,30 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
+            if (searchFilter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchFilter = currentSearchFilter;
+            }
+
             var coils = from c in db.Coils
                         select c;
 
-            // Let user search by job number
+            // Let user search by given field
             if (!String.IsNullOrEmpty(searchString))
             {
-                coils = coils.Where(c => c.JOBNUMBER.Contains(searchString));
+                switch (searchFilter)
+                {
+                    case "JOBNUMBER":
+                        coils = coils.Where(c => c.JOBNUMBER.Contains(searchString));
+                        break;
+                    case "GAUGE":
+                        coils = coils.Where(c => c.GAUGE.Contains(searchString));
+                        break;
+                }
             }
 
             switch (sortOrder)

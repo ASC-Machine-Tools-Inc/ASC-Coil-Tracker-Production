@@ -16,7 +16,8 @@ namespace ASC_Coil_Tracker_Production.Models
         [Display(Name = "Date (MM/dd/yyyy)")]
         public DateTime DATE { get; set; }
 
-        [Display(Name = "Amount Used")]
+        [Display(Name = "Amount Used (ft)")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "Amount used must be non-negative.")]
         public int? AMOUNTUSED { get; set; }
 
         [StringLength(50, ErrorMessage = "Purpose used for cannot be longer than 50 characters.")]
