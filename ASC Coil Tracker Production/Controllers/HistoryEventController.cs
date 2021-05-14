@@ -104,6 +104,15 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 if (ModelState.IsValid)
                 {
                     db.History.Add(historyEvent);
+                    /*
+                    // Edit coil's length left
+                    var coilToUpdate = db.Coils.Find(id);
+                    if (TryUpdateModel(coilToUpdate, "",
+                       new string[] { "COLOR", "TYPE", "GAUGE", "THICK", "WEIGHT", "LENGTH", "NOTES", "JOBNUMBER" }))
+                    {
+                        db.SaveChanges();
+                    }
+                    */
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
