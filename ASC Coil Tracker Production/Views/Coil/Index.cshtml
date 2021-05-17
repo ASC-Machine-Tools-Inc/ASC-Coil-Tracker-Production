@@ -18,8 +18,15 @@
         {
             @Html.DropDownList("SearchFilter", new List<SelectListItem>
                {
-                   new SelectListItem { Text = "Job number", Value = "JOBNUMBER", Selected=true },
-                   new SelectListItem { Text = "Gauge", Value = "GAUGE" }
+                   new SelectListItem { Text = "Color", Value = "COLOR", Selected=true },
+                   new SelectListItem { Text = "Material", Value = "TYPE"},
+                   new SelectListItem { Text = "Gauge", Value = "GAUGE"},
+                   new SelectListItem { Text = "Thickness", Value = "THICK"},
+                   new SelectListItem { Text = "Width", Value = "WIDTH"},
+                   new SelectListItem { Text = "Yield", Value = "YIELD"},
+                   new SelectListItem { Text = "Weight", Value = "WEIGHT"},
+                   new SelectListItem { Text = "Length", Value = "LENGTH"},
+                   new SelectListItem { Text = "Notes", Value = "NOTES"}
                },
                new { @class = "custom-select mx-2" })
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
@@ -33,7 +40,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("ID", "Index", new {sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().COLOR)
@@ -48,6 +55,12 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
         </th>
         <th>
@@ -55,9 +68,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
-        </th>
-        <th>
-            @Html.ActionLink("Job #", "Index", new { sortOrder = ViewBag.JobSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -84,37 +94,48 @@
                 @Html.DisplayFor(modelItem => item.WEIGHT)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.YIELD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WEIGHT)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.LENGTH)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NOTES)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.JOBNUMBER)
-            </td>
-            <td>
-                <span class="btn-group d-flex" role="group">
-                    <a href="@Url.Action("Print", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-print"></i>
-                        Print
-                    </a>
-                    <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-edit"></i>
-                        Edit
-                    </a>
-                    <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-info-circle"></i>
-                        Details
-                    </a>
-                    <a href="@Url.Action("Delete", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-trash"></i>
-                        Delete
-                    </a>
+                <span class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="@Url.Action("Print", new { id=item.ID })">
+                            <i class="fas fa-print"></i>
+                            Print
+                        </a>
+                        <a href="@Url.Action("Edit", new { id=item.ID })">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </a>
+                        <a href="@Url.Action("Details", new { id=item.ID })">
+                            <i class="fas fa-info-circle"></i>
+                            Details
+                        </a>
+                        <a href="@Url.Action("Create", "HistoryEvent", new { coilID = item.ID })">
+                            <i class="fas fa-plus"></i>
+                            Add Record
+                        </a>
+                        <a href="@Url.Action("Delete", new { id=item.ID })">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </a>
+                    </div>
                 </span>
             </td>
         </tr>
     }
-
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

@@ -23,12 +23,10 @@ namespace ASC_Coil_Tracker_Production.Controllers
             string searchFilter, string currentSearchFilter, int? page)
         {
             /* Default: sort by ID desc
-             * This lets the user sort by ID asc or job asc, ID desc
-             * if they choose.
+             * This lets the user sort by ID asc if they choose.
              */
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_asc" : "";
-            ViewBag.JobSortParm = sortOrder == "Job #" ? "job_desc" : "Job #";
 
             // Reset page to 1 if new search string - otherwise, keep filter
             if (searchString != null)
@@ -58,12 +56,40 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 switch (searchFilter)
                 {
-                    case "JOBNUMBER":
-                        coils = coils.Where(c => c.JOBNUMBER.Contains(searchString));
+                    case "COLOR":
+                        coils = coils.Where(c => c.COLOR.Contains(searchString));
+                        break;
+
+                    case "TYPE":
+                        coils = coils.Where(c => c.TYPE.Contains(searchString));
                         break;
 
                     case "GAUGE":
                         coils = coils.Where(c => c.GAUGE.Contains(searchString));
+                        break;
+
+                    case "THICK":
+                        coils = coils.Where(c => c.THICK.ToString() == searchString);
+                        break;
+
+                    case "WIDTH":
+                        coils = coils.Where(c => c.WIDTH.ToString() == searchString);
+                        break;
+
+                    case "YIELD":
+                        coils = coils.Where(c => c.YIELD.ToString() == searchString);
+                        break;
+
+                    case "WEIGHT":
+                        coils = coils.Where(c => c.WEIGHT.ToString() == searchString);
+                        break;
+
+                    case "LENGTH":
+                        coils = coils.Where(c => c.LENGTH.ToString() == searchString);
+                        break;
+
+                    case "NOTES":
+                        coils = coils.Where(c => c.NOTES.Contains(searchString));
                         break;
                 }
             }
@@ -72,14 +98,6 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 case "id_asc":
                     coils = coils.OrderBy(c => c.ID);
-                    break;
-
-                case "Job #":
-                    coils = coils.OrderBy(c => c.JOBNUMBER);
-                    break;
-
-                case "job_desc":
-                    coils = coils.OrderByDescending(c => c.JOBNUMBER);
                     break;
 
                 default:
@@ -120,7 +138,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COLOR,TYPE,GAUGE,THICK,WEIGHT,LENGTH,NOTES,JOBNUMBER")] COILTABLE coil)
+        public ActionResult Create([Bind(Include = "COLOR,TYPE,GAUGE,THICK,WEIGHT,LENGTH,NOTES,YIELD,WIDTH")] COILTABLE coil)
         {
             try
             {
@@ -168,7 +186,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             var coilToUpdate = db.Coils.Find(id);
             if (TryUpdateModel(coilToUpdate, "",
-               new string[] { "COLOR", "TYPE", "GAUGE", "THICK", "WEIGHT", "LENGTH", "NOTES", "JOBNUMBER" }))
+               new string[] { "COLOR", "TYPE", "GAUGE", "THICK", "WEIGHT", "LENGTH", "NOTES", "YIELD", "WIDTH" }))
             {
                 try
                 {
@@ -233,7 +251,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         {
             COILTABLE coil = db.Coils.Find(id);
             var printer = new Print();
-            printer.PrintCoil(coil.ID.ToString(), coil.COLOR, coil.TYPE, coil.GAUGE, coil.THICK, coil.WEIGHT, coil.LENGTH);
+            printer.PrintCoil(coil.ID.ToString(), coil.COLOR, coil.TYPE, coil.GAUGE, coil.THICK, coil.WEIGHT, coil.LENGTH, coil.WIDTH, coil.YIELD);
             return RedirectToAction("Index");
         }
 

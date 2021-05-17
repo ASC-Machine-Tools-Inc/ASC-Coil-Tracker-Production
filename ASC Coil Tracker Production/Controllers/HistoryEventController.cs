@@ -52,12 +52,15 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 case "date_asc":
                     history = history.OrderBy(h => h.DATE);
                     break;
+
                 case "Coil ID":
                     history = history.OrderBy(h => h.COILID);
                     break;
+
                 case "id_desc":
                     history = history.OrderByDescending(h => h.COILID);
                     break;
+
                 default:
                     history = history.OrderByDescending(h => h.DATE);
                     break;
@@ -93,11 +96,11 @@ namespace ASC_Coil_Tracker_Production.Controllers
         }
 
         // POST: HistoryEvent/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COILID,DATE,AMOUNTUSED,USEDFOR,MACHINEUSEDIN,NOTES")] COILTABLEHISTORY historyEvent)
+        public ActionResult Create([Bind(Include = "COILID,DATE,AMOUNTUSED,JOBNUMBER,NOTES")] COILTABLEHISTORY historyEvent)
         {
             try
             {
@@ -143,7 +146,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         }
 
         // POST: HistoryEvent/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -155,7 +158,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             COILTABLEHISTORY historyEvent = db.History.Find(id);
             if (TryUpdateModel(historyEvent, "",
-               new string[] { "DATE", "AMOUNTUSED", "USEDFOR", "MACHINEUSEDIN", "NOTES" }))
+               new string[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES" }))
             {
                 try
                 {

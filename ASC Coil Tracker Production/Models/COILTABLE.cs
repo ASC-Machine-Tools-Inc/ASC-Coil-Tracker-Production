@@ -35,24 +35,28 @@ namespace ASC_Coil_Tracker_Production.Models
         public string GAUGE { get; set; }
 
         [Display(Name = "Thickness (in)")]
-        [Range(0.001, 1.000, ErrorMessage = "Enter a thickness between 0.000 and 1.000")]
+        [Range(0.001, 1.000, ErrorMessage = "Enter a thickness between 0.000 and 1.000.")]
         public double THICK { get; set; }
 
         [Display(Name = "Weight (lbs)")]
-        [Range(0.000, 100000.000, ErrorMessage = "Enter a weight between 0.000 and 100000.000")]
+        [Range(0.000, Int32.MaxValue, ErrorMessage = "Weight must be non-negative.")]
         public double WEIGHT { get; set; }
 
         [Display(Name = "Length (ft)")]
-        [Range(0.001, 100000.000, ErrorMessage = "Enter a length between 0.000 and 100000.000")]
+        [Range(0.001, Int32.MaxValue, ErrorMessage = "Length must be non-negative.")]
         public double LENGTH { get; set; }
-
-        [StringLength(50, ErrorMessage = "Job numbers cannot be longer than 30 characters.")]
-        [Display(Name = "Assigned Job Number:")]
-        public string JOBNUMBER { get; set; }
 
         [StringLength(50, ErrorMessage = "Notes cannot be longer than 30 characters.")]
         [Display(Name = "Notes")]
         public string NOTES { get; set; }
+
+        [Display(Name = "Yield (ksi)")]
+        [Range(0.000, Int32.MaxValue, ErrorMessage = "Yield must be non-negative.")]
+        public double YIELD { get; set; }
+
+        [Display(Name = "Width (in)")]
+        [Range(0.001, 72.000, ErrorMessage = "Enter a length between 0.000 and 72.000")]
+        public double WIDTH { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COILTABLEHISTORY> COILTABLEHISTORY { get; set; }

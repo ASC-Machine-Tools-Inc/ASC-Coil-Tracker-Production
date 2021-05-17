@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+
 namespace PrintLogic
 {
     public class Print
     {
-        
-        public void PrintCoil(string ID, string FINISH, string MATERIAL, string GAUGE, double THICK, double WEIGHT, double LENGTH)
+        public void PrintCoil(string ID, string FINISH, string MATERIAL, string GAUGE, double THICK,
+            double WEIGHT, double LENGTH, double WIDTH, double YIELD)
         {
             // Printer IP Address and communication port
             const string IPAddress = "192.168.0.208";
@@ -40,8 +41,8 @@ namespace PrintLogic
             ZPLString += "^FO250,50^ADB,36,20^FD" + FINISH + "^FS"; //SEND TEXT OBJECT
             ZPLString += "^FO350,500^ADB,36,20^FD" + LENGTH + "^FS"; //SEND TEXT OBJECT
             //ADD QR CODE
-            //ZPLString += "^FO435,50^BQN,2,10^FH^FDMM,B0080   " + CODE + "_0D_0A^FS"; //SEND QR CODE OBJECT 
-            //ZPLString += "^FO435,50^BQN,2,10^FD   " + COILS.QR_CODE + "^FS"; //SEND QR CODE OBJECT 
+            //ZPLString += "^FO435,50^BQN,2,10^FH^FDMM,B0080   " + CODE + "_0D_0A^FS"; //SEND QR CODE OBJECT
+            //ZPLString += "^FO435,50^BQN,2,10^FD   " + COILS.QR_CODE + "^FS"; //SEND QR CODE OBJECT
             //ZPLString += "^FO415,50^ADB,18,10^FD" + CODE + "^FS"; //SEND TEXT OBJECT
             ZPLString += "^XZ"; //END LABEL
 
