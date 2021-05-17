@@ -374,6 +374,7 @@
     <Content Include="Views\HistoryEvent\Details.cshtml" />
     <Content Include="Views\HistoryEvent\Edit.cshtml" />
     <Content Include="Views\HistoryEvent\Index.cshtml" />
+    <Content Include="Views\Coil\Calculator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -61,6 +61,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
                     case "JOBNUMBER":
                         coils = coils.Where(c => c.JOBNUMBER.Contains(searchString));
                         break;
+
                     case "GAUGE":
                         coils = coils.Where(c => c.GAUGE.Contains(searchString));
                         break;
@@ -72,12 +73,15 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 case "id_asc":
                     coils = coils.OrderBy(c => c.ID);
                     break;
+
                 case "Job #":
                     coils = coils.OrderBy(c => c.JOBNUMBER);
                     break;
+
                 case "job_desc":
                     coils = coils.OrderByDescending(c => c.JOBNUMBER);
                     break;
+
                 default:
                     coils = coils.OrderByDescending(c => c.ID);
                     break;
@@ -112,7 +116,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         }
 
         // POST: Coil/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -207,7 +211,6 @@ namespace ASC_Coil_Tracker_Production.Controllers
             return RedirectToAction("Index");
         }
 
-
         // GET: Coil/Print/5
         public ActionResult Print(int? id)
         {
@@ -232,6 +235,12 @@ namespace ASC_Coil_Tracker_Production.Controllers
             var printer = new Print();
             printer.PrintCoil(coil.ID.ToString(), coil.COLOR, coil.TYPE, coil.GAUGE, coil.THICK, coil.WEIGHT, coil.LENGTH);
             return RedirectToAction("Index");
+        }
+
+        // GET: Coil/Calculator
+        public ActionResult Calculator()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)
