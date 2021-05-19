@@ -43,7 +43,7 @@ namespace ASC_Coil_Tracker_Production.Models
         public double WEIGHT { get; set; }
 
         [Display(Name = "Length (ft)")]
-        [Range(0.001, Int32.MaxValue, ErrorMessage = "Length must be non-negative.")]
+        [Range(0.0, Int32.MaxValue, ErrorMessage = "Length must be non-negative.")]
         public double LENGTH { get; set; }
 
         [StringLength(50, ErrorMessage = "Notes cannot be longer than 30 characters.")]

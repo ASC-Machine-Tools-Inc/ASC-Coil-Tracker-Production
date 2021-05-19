@@ -21,7 +21,7 @@ namespace ASC_Coil_Tracker_Production.Models
         public int? AMOUNTUSED { get; set; }
 
         [StringLength(50, ErrorMessage = "Job numbers cannot be longer than 50 characters.")]
-        [Display(Name = "Assigned Job Number:")]
+        [Display(Name = "Assigned Job Number")]
         public string JOBNUMBER { get; set; }
 
         [StringLength(50, ErrorMessage = "Notes cannot be longer than 50 characters.")]

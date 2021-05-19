@@ -20,7 +20,9 @@ namespace ASC_Coil_Tracker_Production.Controllers
 
         // GET: Coil
         public ViewResult Index(string sortOrder, string currentFilter, string searchString,
-            string searchFilter, string currentSearchFilter, int? page)
+            string searchFilter, string currentSearchFilter,
+            string lengthFilter, string currentLengthFilter,
+            int? page)
         {
             /* Default: sort by ID desc
              * This lets the user sort by ID asc if they choose.
@@ -47,9 +49,53 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 searchFilter = currentSearchFilter;
             }
+            ViewBag.CurrentSearchFilter = searchFilter;
 
+            if (lengthFilter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                // TODO: fix this to change to ALL
+                if (currentLengthFilter == null)
+                {
+                    lengthFilter = "NON-DEPLETED";
+                }
+                else
+                {
+                    lengthFilter = currentLengthFilter;
+                }
+            }
+            ViewBag.CurrentLengthFilter = lengthFilter;
+
+            // Length list initialization
+            List<SelectListItem> lengthList = new List<SelectListItem>();
+            if (lengthFilter.Equals("ALL"))
+            {
+                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED" });
+                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL", Selected = true });
+            }
+            else
+            {
+                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED", Selected = true });
+                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL" });
+            }
+            ViewBag.LengthList = lengthList;
+
+            // Get current length for coil
             var coils = from c in db.Coils
                         select c;
+
+            // Sort by length filter
+            if (!String.IsNullOrEmpty(lengthFilter))
+            {
+                if (lengthFilter.Equals("NON-DEPLETED"))
+                {
+                    coils = coils.Where(c => c.LENGTH > 0.0);
+                }
+                // Else show all coils
+            }
 
             // Let user search by given field
             if (!String.IsNullOrEmpty(searchString))

@@ -16,7 +16,8 @@
             @Html.DropDownList("SearchFilter", new List<SelectListItem>
                {
                    new SelectListItem { Text = "Coil ID", Value = "COILID", Selected=true },
-                   new SelectListItem { Text = "Date", Value = "DATE"},
+                   // TODO: fix searching by date
+                   // new SelectListItem { Text = "Date", Value = "DATE"},
                    new SelectListItem { Text = "Job Number", Value = "JOBNUMBER"},
                    new SelectListItem { Text = "Notes", Value = "NOTES"}
                },
@@ -32,10 +33,20 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Coil ID", "Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Coil ID", "Index", new
+            {
+                sortOrder = ViewBag.IDSortParm,
+                currentFilter = ViewBag.CurrentFilter,
+                currentSearchFilter = ViewBag.CurrentSearchFilter
+            })
         </th>
         <th>
-            @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Date", "Index", new
+            {
+                sortOrder = ViewBag.DateSortParm,
+                currentFilter = ViewBag.CurrentFilter,
+                currentSearchFilter = ViewBag.CurrentSearchFilter
+            })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().AMOUNTUSED)
@@ -68,20 +79,25 @@
                 @Html.DisplayFor(modelItem => item.NOTES)
             </td>
             <td>
-                <span class="btn-group d-flex" role="group">
-                    <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-edit"></i>
-                        Edit
-                    </a>
-                    <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-info-circle"></i>
-                        Details
-                    </a>
-                    <a href="@Url.Action("Delete", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-trash"></i>
-                        Delete
-                    </a>
-                </span>
+                <div class="btn-group d-flex" role="group">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </a>
+                        <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
+                            <i class="fas fa-info-circle"></i>
+                            Details
+                        </a>
+                        <a href="@Url.Action("Delete", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </a>
+                    </div>
+                </div>
             </td>
         </tr>
     }
@@ -90,4 +106,4 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentSearchFilter = ViewBag.CurrentSearchFilter }))

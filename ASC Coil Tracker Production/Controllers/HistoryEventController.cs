@@ -18,7 +18,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
         private CoilContext db = new CoilContext();
 
         // GET: HistoryEvent
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString,
+            string searchFilter, string currentSearchFilter, int? page)
         {
             /* Default: sort by date desc
              * This lets the user sort by date asc or ID desc, date desc
@@ -38,13 +39,41 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
+            if (searchFilter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchFilter = currentSearchFilter;
+            }
+            ViewBag.CurrentSearchFilter = searchFilter;
+
             var history = from h in db.History
                           select h;
 
             // Let user search by job number
             if (!String.IsNullOrEmpty(searchString))
             {
-                history = history.Where(h => h.COILID.ToString().Contains(searchString));
+                switch (searchFilter)
+                {
+                    case "COILID":
+                        history = history.Where(h => h.COILID.ToString().Contains(searchString));
+                        break;
+
+                    // TODO: fix searching by date
+                    case "DATE":
+                        history = history.Where(h => h.DATE.ToString("MM/dd/yyyy").Contains(searchString));
+                        break;
+
+                    case "JOBNUMBER":
+                        history = history.Where(h => h.JOBNUMBER.Contains(searchString));
+                        break;
+
+                    case "NOTES":
+                        history = history.Where(h => h.NOTES.Contains(searchString));
+                        break;
+                }
             }
 
             switch (sortOrder)
