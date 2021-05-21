@@ -154,6 +154,10 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLE coil = db.Coils.Find(id);
+
+            // Calculate original length
+            ViewBag.OriginalLength = CalculateLength(coil);
+
             if (coil == null)
             {
                 return HttpNotFound();
@@ -245,6 +249,9 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLE coil = db.Coils.Find(id);
+
+            // Calculate original length
+            ViewBag.OriginalLength = CalculateLength(coil);
             if (coil == null)
             {
                 return HttpNotFound();
@@ -302,6 +309,25 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // Takes a coil and returns its actual length by adding the amount used in its history events.
+        private int CalculateLength(COILTABLE coil)
+        {
+            int currentLength = 0;
+            if (coil.LENGTH != null)
+            {
+                currentLength = (int)coil.LENGTH;
+                var history = from h in coil.COILTABLEHISTORY
+                              where h.AMOUNTUSED != null
+                              select h;
+
+                foreach (var h in history)
+                {
+                    currentLength += (int)h.AMOUNTUSED;
+                }
+            }
+            return currentLength;
         }
     }
 }

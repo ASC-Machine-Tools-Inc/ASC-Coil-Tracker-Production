@@ -135,16 +135,21 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.History.Add(historyEvent);
-                    /*
-                    // Edit coil's length left
-                    var coilToUpdate = db.Coils.Find(id);
-                    if (TryUpdateModel(coilToUpdate, "",
-                       new string[] { "COLOR", "TYPE", "GAUGE", "THICK", "WEIGHT", "LENGTH", "NOTES", "JOBNUMBER" }))
+                    // Update coil's length
+                    var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+                    if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
                     {
-                        db.SaveChanges();
+                        if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH)
+                        {
+                            ModelState.AddModelError("AmountUsedGreaterThanLengthError", "Amount used cannot be greater than remaining coil length!");
+                            return View(historyEvent);
+                        }
+
+                        coilToUpdate.LENGTH -= (int)historyEvent.AMOUNTUSED;
                     }
-                    */
+
+                    db.History.Add(historyEvent);
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -186,11 +191,26 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLEHISTORY historyEvent = db.History.Find(id);
+            int oldAmountUsed = (int)historyEvent.AMOUNTUSED;
             if (TryUpdateModel(historyEvent, "",
                new string[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES" }))
             {
                 try
                 {
+                    // Update coil's length
+                    var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+                    if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
+                    {
+                        if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH)
+                        {
+                            ModelState.AddModelError("AmountUsedGreaterThanLengthError", "Amount used cannot be greater than remaining coil length!");
+                            return View(historyEvent);
+                        }
+
+                        coilToUpdate.LENGTH += oldAmountUsed;
+                        coilToUpdate.LENGTH -= (int)historyEvent.AMOUNTUSED;
+                    }
+
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -198,7 +218,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 catch (RetryLimitExceededException /* dex */)
                 {
                     // Log the error (uncomment dex and add line here to write log
-                    ModelState.AddModelError("", "Unable to create edit history record. Try again," +
+                    ModelState.AddModelError("", "Unable to edit history record. Try again," +
                         " and report the issue in Contacts if the problem persists.");
                 }
             }
@@ -227,6 +247,14 @@ namespace ASC_Coil_Tracker_Production.Controllers
         {
             COILTABLEHISTORY historyEvent = db.History.Find(id);
             db.History.Remove(historyEvent);
+
+            // Update coil's length
+            var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+            if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
+            {
+                coilToUpdate.LENGTH += (int)historyEvent.AMOUNTUSED;
+            }
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -9,8 +9,8 @@ namespace PrintLogic
 {
     public class Print
     {
-        public void PrintCoil(string ID, string FINISH, string MATERIAL, string GAUGE, double THICK,
-            double WEIGHT, double LENGTH, double WIDTH, double YIELD)
+        public void PrintCoil(string ID, string FINISH, string MATERIAL, string GAUGE, double? THICK,
+            double? WEIGHT, double? LENGTH, double? WIDTH, double? YIELD)
         {
             // Printer IP Address and communication port
             const string IPAddress = "192.168.0.208";
