@@ -201,7 +201,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
                     var coilToUpdate = db.Coils.Find(historyEvent.COILID);
                     if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
                     {
-                        if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH)
+                        if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH + oldAmountUsed)
                         {
                             ModelState.AddModelError("AmountUsedGreaterThanLengthError", "Amount used cannot be greater than remaining coil length!");
                             return View(historyEvent);
