@@ -10,12 +10,13 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar navbar-expand-lg navbar-dark">
         @Html.ActionLink("ASC Coil Tracker", "Index", "Coil", new { area = "" }, new { @class = "navbar-brand" })
 
         <div class="navbar-nav mr-auto">
             <li>@Html.ActionLink("Coils", "Index", "Coil", null, new { @class = "nav-item nav-link" })</li>
             <li>@Html.ActionLink("Search History", "Index", "HistoryEvent", null, new { @class = "nav-item nav-link" })</li>
+            <li>@Html.ActionLink("Coil Calculator", "Calculator", "Coil", null, new { @class = "nav-item nav-link" })</li>
             <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-item nav-link" })</li>
         </div>
     </div>
@@ -28,6 +29,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/popper")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

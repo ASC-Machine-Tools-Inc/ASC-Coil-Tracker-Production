@@ -23,7 +23,7 @@ namespace ASC_Coil_Tracker_Production.Data_Access_Layer
                 .HasMany(e => e.COILTABLEHISTORY)
                 .WithRequired(e => e.COILTABLE)
                 .HasForeignKey(e => e.COILID)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
     }
 }

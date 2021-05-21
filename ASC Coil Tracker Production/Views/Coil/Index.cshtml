@@ -7,16 +7,53 @@
 }
 
 <div class="row mb-3">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <a href="@Url.Action("Create")" class="btn btn-primary mb-1">
             <i class="fas fa-plus"></i>
             Create New Coil Record
         </a>
     </div>
-    <div class="col-md-6">
-        @using (Html.BeginForm("Index", "Coil", FormMethod.Get, new { @class = "form-inline justify-content-end" }))
+    <div class="col-md-4">
+        @using (Html.BeginForm("Index", "Coil", FormMethod.Get))
         {
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Find by job #" })
+            <!-- hidden current fields -->
+            @Html.Hidden("sortOrder", (string)ViewBag.IDSortParm);
+            @Html.Hidden("currentFilter", (string)ViewBag.CurrentFilter);
+            @Html.Hidden("currentSearchFilter", (string)ViewBag.CurrentSearchFilter);
+            @Html.Hidden("currentLengthFilter", (string)ViewBag.CurrentLengthFilter);
+
+            <label for="lengthFilter">Show:</label>
+            @Html.DropDownList("LengthFilter", new SelectList(ViewBag.LengthList, "Value", "Text"),
+            new { @id = "lengthFilter", @class = "custom-select mx-2" });
+        }
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm("Index", "Coil", FormMethod.Get,
+            new
+            {
+                @class = "form-inline justify-content-end"
+            }))
+        {
+            <!-- hidden current fields -->
+            @Html.Hidden("sortOrder", (string)ViewBag.IDSortParm);
+            @Html.Hidden("currentFilter", (string)ViewBag.CurrentFilter);
+            @Html.Hidden("currentSearchFilter", (string)ViewBag.CurrentSearchFilter);
+            @Html.Hidden("currentLengthFilter", (string)ViewBag.CurrentLengthFilter);
+
+            @Html.DropDownList("SearchFilter", new List<SelectListItem>
+               {
+                   new SelectListItem { Text = "Color", Value = "COLOR", Selected=true },
+                   new SelectListItem { Text = "Material", Value = "TYPE"},
+                   new SelectListItem { Text = "Gauge", Value = "GAUGE"},
+                   new SelectListItem { Text = "Thickness", Value = "THICK"},
+                   new SelectListItem { Text = "Width", Value = "WIDTH"},
+                   new SelectListItem { Text = "Yield", Value = "YIELD"},
+                   new SelectListItem { Text = "Weight", Value = "WEIGHT"},
+                   new SelectListItem { Text = "Length", Value = "LENGTH"},
+                   new SelectListItem { Text = "Notes", Value = "NOTES"}
+               },
+               new { @class = "custom-select mx-2" })
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
             <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
             </button>
@@ -27,7 +64,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("ID", "Index", new
+            {
+                sortOrder = ViewBag.IDSortParm,
+                currentFilter = ViewBag.CurrentFilter,
+                currentSearchFilter = ViewBag.CurrentSearchFilter,
+                currentLengthFilter = ViewBag.CurrentLengthFilter
+            })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().COLOR)
@@ -42,6 +85,12 @@
             @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
         </th>
         <th>
@@ -49,9 +98,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
-        </th>
-        <th>
-            @Html.ActionLink("Job #", "Index", new { sortOrder = ViewBag.JobSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -75,6 +121,12 @@
                 @Html.DisplayFor(modelItem => item.THICK)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.WIDTH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YIELD)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.WEIGHT)
             </td>
             <td>
@@ -84,34 +136,52 @@
                 @Html.DisplayFor(modelItem => item.NOTES)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.JOBNUMBER)
-            </td>
-            <td>
-                <span class="btn-group d-flex" role="group">
-                    <a href="@Url.Action("Print", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-print"></i>
-                        Print
-                    </a>
-                    <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-edit"></i>
-                        Edit
-                    </a>
-                    <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-info-circle"></i>
-                        Details
-                    </a>
-                    <a href="@Url.Action("Delete", new { id=item.ID })" class="btn btn-outline-primary">
-                        <i class="fas fa-trash"></i>
-                        Delete
-                    </a>
-                </span>
+                <div class="btn-group d-flex" role="group">
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="@Url.Action("Print", new { id=item.ID })" class="dropdown-item">
+                            <i class="fas fa-print"></i>
+                            Print
+                        </a>
+                        <a href="@Url.Action("Edit", new { id=item.ID })" class="dropdown-item">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </a>
+                        <a href="@Url.Action("Details", new { id=item.ID })" class="dropdown-item">
+                            <i class="fas fa-info-circle"></i>
+                            Details
+                        </a>
+                        <a href="@Url.Action("Create", "HistoryEvent", new { coilID = item.ID })" class="dropdown-item">
+                            <i class="fas fa-plus"></i>
+                            Add Record
+                        </a>
+                        <!-- delete functionality disabled for coils
+                        <a href="@Url.Action("Delete", new { id=item.ID })" class="dropdown-item">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </a>
+                            -->
+                    </div>
+                </div>
             </td>
         </tr>
     }
-
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    new
+    {
+        page,
+        sortOrder = ViewBag.IDSortParm,
+        currentFilter = ViewBag.CurrentFilter,
+        currentSearchFilter = ViewBag.CurrentSearchFilter,
+        currentLengthFilter = ViewBag.CurrentLengthFilter
+    }))
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/OnLengthFilterChange.js")
+}

@@ -18,7 +18,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
         private CoilContext db = new CoilContext();
 
         // GET: HistoryEvent
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString,
+            string searchFilter, string currentSearchFilter, int? page)
         {
             /* Default: sort by date desc
              * This lets the user sort by date asc or ID desc, date desc
@@ -38,13 +39,41 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
+            if (searchFilter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchFilter = currentSearchFilter;
+            }
+            ViewBag.CurrentSearchFilter = searchFilter;
+
             var history = from h in db.History
                           select h;
 
             // Let user search by job number
             if (!String.IsNullOrEmpty(searchString))
             {
-                history = history.Where(h => h.COILID.ToString().Contains(searchString));
+                switch (searchFilter)
+                {
+                    case "COILID":
+                        history = history.Where(h => h.COILID.ToString().Contains(searchString));
+                        break;
+
+                    // TODO: fix searching by date
+                    case "DATE":
+                        history = history.Where(h => h.DATE.ToString("MM/dd/yyyy").Contains(searchString));
+                        break;
+
+                    case "JOBNUMBER":
+                        history = history.Where(h => h.JOBNUMBER.Contains(searchString));
+                        break;
+
+                    case "NOTES":
+                        history = history.Where(h => h.NOTES.Contains(searchString));
+                        break;
+                }
             }
 
             switch (sortOrder)
@@ -52,12 +81,15 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 case "date_asc":
                     history = history.OrderBy(h => h.DATE);
                     break;
+
                 case "Coil ID":
                     history = history.OrderBy(h => h.COILID);
                     break;
+
                 case "id_desc":
                     history = history.OrderByDescending(h => h.COILID);
                     break;
+
                 default:
                     history = history.OrderByDescending(h => h.DATE);
                     break;
@@ -93,17 +125,31 @@ namespace ASC_Coil_Tracker_Production.Controllers
         }
 
         // POST: HistoryEvent/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COILID,DATE,AMOUNTUSED,USEDFOR,MACHINEUSEDIN,NOTES")] COILTABLEHISTORY historyEvent)
+        public ActionResult Create([Bind(Include = "COILID,DATE,AMOUNTUSED,JOBNUMBER,NOTES")] COILTABLEHISTORY historyEvent)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    // Update coil's length
+                    var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+                    if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
+                    {
+                        if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH)
+                        {
+                            ModelState.AddModelError("AmountUsedGreaterThanLengthError", "Amount used cannot be greater than remaining coil length!");
+                            return View(historyEvent);
+                        }
+
+                        coilToUpdate.LENGTH -= (int)historyEvent.AMOUNTUSED;
+                    }
+
                     db.History.Add(historyEvent);
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -134,7 +180,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         }
 
         // POST: HistoryEvent/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -145,11 +191,26 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLEHISTORY historyEvent = db.History.Find(id);
+            int oldAmountUsed = (int)historyEvent.AMOUNTUSED;
             if (TryUpdateModel(historyEvent, "",
-               new string[] { "DATE", "AMOUNTUSED", "USEDFOR", "MACHINEUSEDIN", "NOTES" }))
+               new string[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES" }))
             {
                 try
                 {
+                    // Update coil's length
+                    var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+                    if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
+                    {
+                        if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH + oldAmountUsed)
+                        {
+                            ModelState.AddModelError("AmountUsedGreaterThanLengthError", "Amount used cannot be greater than remaining coil length!");
+                            return View(historyEvent);
+                        }
+
+                        coilToUpdate.LENGTH += oldAmountUsed;
+                        coilToUpdate.LENGTH -= (int)historyEvent.AMOUNTUSED;
+                    }
+
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -157,7 +218,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 catch (RetryLimitExceededException /* dex */)
                 {
                     // Log the error (uncomment dex and add line here to write log
-                    ModelState.AddModelError("", "Unable to create edit history record. Try again," +
+                    ModelState.AddModelError("", "Unable to edit history record. Try again," +
                         " and report the issue in Contacts if the problem persists.");
                 }
             }
@@ -186,6 +247,14 @@ namespace ASC_Coil_Tracker_Production.Controllers
         {
             COILTABLEHISTORY historyEvent = db.History.Find(id);
             db.History.Remove(historyEvent);
+
+            // Update coil's length
+            var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+            if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
+            {
+                coilToUpdate.LENGTH += (int)historyEvent.AMOUNTUSED;
+            }
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

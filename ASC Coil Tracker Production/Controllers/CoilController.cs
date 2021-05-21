@@ -19,16 +19,17 @@ namespace ASC_Coil_Tracker_Production.Controllers
         private CoilContext db = new CoilContext();
 
         // GET: Coil
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString,
+            string searchFilter, string currentSearchFilter,
+            string lengthFilter, string currentLengthFilter,
+            int? page)
         {
             /* Default: sort by ID desc
-             * This lets the user sort by ID asc or job asc, ID desc
-             * if they choose.
+             * This lets the user sort by ID asc if they choose.
              */
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_asc" : "";
-            ViewBag.JobSortParm = sortOrder == "Job #" ? "job_desc" : "Job #";
+            ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "id_asc";
 
+            // Reset page to 1 if new search string - otherwise, keep filter
             if (searchString != null)
             {
                 page = 1;
@@ -39,26 +40,100 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
+            if (searchFilter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchFilter = currentSearchFilter;
+            }
+            ViewBag.CurrentSearchFilter = searchFilter;
+
+            if (lengthFilter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                lengthFilter = currentLengthFilter;
+            }
+            ViewBag.CurrentLengthFilter = lengthFilter;
+
+            // Length list initialization
+            List<SelectListItem> lengthList = new List<SelectListItem>();
+            if (lengthFilter == null || lengthFilter.Equals("NON-DEPLETED"))
+            {
+                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED", Selected = true });
+                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL" });
+            }
+            else
+            {
+                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED" });
+                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL", Selected = true });
+            }
+            ViewBag.LengthList = lengthList;
+
+            // Get current length for coil
             var coils = from c in db.Coils
                         select c;
 
-            // Let user search by job number
+            // Let user search by given field
             if (!String.IsNullOrEmpty(searchString))
             {
-                coils = coils.Where(c => c.JOBNUMBER.Contains(searchString));
+                switch (searchFilter)
+                {
+                    case "COLOR":
+                        coils = coils.Where(c => c.COLOR.Contains(searchString));
+                        break;
+
+                    case "TYPE":
+                        coils = coils.Where(c => c.TYPE.Contains(searchString));
+                        break;
+
+                    case "GAUGE":
+                        coils = coils.Where(c => c.GAUGE.Contains(searchString));
+                        break;
+
+                    case "THICK":
+                        coils = coils.Where(c => c.THICK.ToString() == searchString);
+                        break;
+
+                    case "WIDTH":
+                        coils = coils.Where(c => c.WIDTH.ToString() == searchString);
+                        break;
+
+                    case "YIELD":
+                        coils = coils.Where(c => c.YIELD.ToString() == searchString);
+                        break;
+
+                    case "WEIGHT":
+                        coils = coils.Where(c => c.WEIGHT.ToString() == searchString);
+                        break;
+
+                    case "LENGTH":
+                        coils = coils.Where(c => c.LENGTH.ToString() == searchString);
+                        break;
+
+                    case "NOTES":
+                        coils = coils.Where(c => c.NOTES.Contains(searchString));
+                        break;
+                }
             }
+
+            // Sort by length filter
+            if (lengthFilter == null || lengthFilter.Equals("NON-DEPLETED"))
+            {
+                coils = coils.Where(c => c.LENGTH > 0.0);
+            }
+            // Else show all coils
 
             switch (sortOrder)
             {
                 case "id_asc":
                     coils = coils.OrderBy(c => c.ID);
                     break;
-                case "Job #":
-                    coils = coils.OrderBy(c => c.JOBNUMBER);
-                    break;
-                case "job_desc":
-                    coils = coils.OrderByDescending(c => c.JOBNUMBER);
-                    break;
+
                 default:
                     coils = coils.OrderByDescending(c => c.ID);
                     break;
@@ -79,6 +154,10 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLE coil = db.Coils.Find(id);
+
+            // Calculate original length
+            ViewBag.OriginalLength = CalculateLength(coil);
+
             if (coil == null)
             {
                 return HttpNotFound();
@@ -93,11 +172,11 @@ namespace ASC_Coil_Tracker_Production.Controllers
         }
 
         // POST: Coil/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COLOR,TYPE,GAUGE,THICK,WEIGHT,LENGTH,NOTES,JOBNUMBER")] COILTABLE coil)
+        public ActionResult Create([Bind(Include = "COLOR,TYPE,GAUGE,THICK,WEIGHT,LENGTH,NOTES,YIELD,WIDTH")] COILTABLE coil)
         {
             try
             {
@@ -145,7 +224,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             var coilToUpdate = db.Coils.Find(id);
             if (TryUpdateModel(coilToUpdate, "",
-               new string[] { "COLOR", "TYPE", "GAUGE", "THICK", "WEIGHT", "LENGTH", "NOTES", "JOBNUMBER" }))
+               new string[] { "COLOR", "TYPE", "GAUGE", "THICK", "WEIGHT", "LENGTH", "NOTES", "YIELD", "WIDTH" }))
             {
                 try
                 {
@@ -170,6 +249,9 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLE coil = db.Coils.Find(id);
+
+            // Calculate original length
+            ViewBag.OriginalLength = CalculateLength(coil);
             if (coil == null)
             {
                 return HttpNotFound();
@@ -187,7 +269,6 @@ namespace ASC_Coil_Tracker_Production.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
 
         // GET: Coil/Print/5
         public ActionResult Print(int? id)
@@ -211,8 +292,14 @@ namespace ASC_Coil_Tracker_Production.Controllers
         {
             COILTABLE coil = db.Coils.Find(id);
             var printer = new Print();
-            printer.PrintCoil(coil.ID.ToString(), coil.COLOR, coil.TYPE, coil.GAUGE, coil.THICK, coil.WEIGHT, coil.LENGTH);
+            printer.PrintCoil(coil.ID.ToString(), coil.COLOR, coil.TYPE, coil.GAUGE, coil.THICK, coil.WEIGHT, coil.LENGTH, coil.WIDTH, coil.YIELD);
             return RedirectToAction("Index");
+        }
+
+        // GET: Coil/Calculator
+        public ActionResult Calculator()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)
@@ -222,6 +309,25 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // Takes a coil and returns its actual length by adding the amount used in its history events.
+        private int CalculateLength(COILTABLE coil)
+        {
+            int currentLength = 0;
+            if (coil.LENGTH != null)
+            {
+                currentLength = (int)coil.LENGTH;
+                var history = from h in coil.COILTABLEHISTORY
+                              where h.AMOUNTUSED != null
+                              select h;
+
+                foreach (var h in history)
+                {
+                    currentLength += (int)h.AMOUNTUSED;
+                }
+            }
+            return currentLength;
         }
     }
 }

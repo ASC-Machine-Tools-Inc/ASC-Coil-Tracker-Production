@@ -6,7 +6,6 @@
 
 <h2>Edit Coil</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -56,6 +55,22 @@
         </div>
 
         <div class="form-group row">
+            @Html.LabelFor(model => model.WIDTH, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.WIDTH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WIDTH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.YIELD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YIELD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YIELD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
             @Html.LabelFor(model => model.WEIGHT, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.WEIGHT, new { htmlAttributes = new { @class = "form-control" } })
@@ -76,14 +91,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NOTES, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NOTES, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.JOBNUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.JOBNUMBER, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JOBNUMBER, "", new { @class = "text-danger" })
             </div>
         </div>
 

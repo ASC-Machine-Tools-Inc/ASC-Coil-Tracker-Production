@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Calculator";
+}
+
+<h2>Coil Calculator</h2>
+
+<hr />
+<div class="form-horizontal">
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="densitySelect">Density</label>
+        </div>
+        <div class="col-md-10">
+            @Html.DropDownList("SearchFilter", new List<SelectListItem>
+               {
+                   new SelectListItem { Text = "Steel", Value = "STEEL", Selected=true },
+                   new SelectListItem { Text = "Aluminum", Value = "ALUM" },
+                   new SelectListItem { Text = "Copper", Value = "COPPER" }
+               },
+               new { @id = "densitySelect", @class = "custom-select qty" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="idInput">ID (in)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control qty" id="idInput" step="0.001" min="0.001">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="odInput">OD (in)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control qty" id="odInput" step="0.001" min="0.001">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="widthInput">Width (in)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control qty" id="widthInput" step="0.001" min="0.001">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="thicknessInput">Thickness (in)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control qty" id="thicknessInput" step="0.001" min="0.001">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="piwInput">PIW (lbs)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control" id="piwInput" readonly>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="lengthInput">Length (ft)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control" id="lengthInput" readonly>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="areaInput">Area (sq ft)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control" id="areaInput" readonly>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-2">
+            <label for="weightInput">Weight (lbs)</label>
+        </div>
+        <div class="col-md-10">
+            <input type="number" class="form-control" id="weightInput" readonly>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/CoilCalculator.js")
+}

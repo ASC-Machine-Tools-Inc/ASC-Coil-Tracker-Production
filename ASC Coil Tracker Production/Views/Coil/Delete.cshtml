@@ -49,10 +49,31 @@
                 </dd>
 
                 <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.WIDTH)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.WIDTH)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.YIELD)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.YIELD)
+                </dd>
+
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.WEIGHT)
                 </dt>
                 <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.WEIGHT)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Original Length (ft)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.Raw(ViewBag.OriginalLength)
                 </dd>
 
                 <dt class="col-sm-3">
@@ -67,13 +88,6 @@
                 </dt>
                 <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.NOTES)
-                </dd>
-
-                <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.JOBNUMBER)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.JOBNUMBER)
                 </dd>
             </dl>
         </div>
@@ -97,10 +111,7 @@
                             @Html.DisplayFor(modelItem => item.AMOUNTUSED)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.USEDFOR)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MACHINEUSEDIN)
+                            @Html.DisplayFor(modelItem => item.JOBNUMBER)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NOTES)

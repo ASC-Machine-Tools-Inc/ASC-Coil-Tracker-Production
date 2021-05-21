@@ -13,19 +13,16 @@ namespace ASC_Coil_Tracker_Production.Models
 
         [Column(TypeName = "smalldatetime")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        [Display(Name = "Date")]
+        [Display(Name = "Date (MM/dd/yyyy)")]
         public DateTime DATE { get; set; }
 
-        [Display(Name = "Amount Used")]
+        [Display(Name = "Amount Used (ft)")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "Amount used must be non-negative.")]
         public int? AMOUNTUSED { get; set; }
 
-        [StringLength(50, ErrorMessage = "Purpose used for cannot be longer than 50 characters.")]
-        [Display(Name = "What Coil Used For")]
-        public string USEDFOR { get; set; }
-
-        [StringLength(50, ErrorMessage = "Machine used in cannot be longer than 50 characters.")]
-        [Display(Name = "Machine Used In")]
-        public string MACHINEUSEDIN { get; set; }
+        [StringLength(50, ErrorMessage = "Job numbers cannot be longer than 50 characters.")]
+        [Display(Name = "Assigned Job Number")]
+        public string JOBNUMBER { get; set; }
 
         [StringLength(50, ErrorMessage = "Notes cannot be longer than 50 characters.")]
         [Display(Name = "Notes")]
