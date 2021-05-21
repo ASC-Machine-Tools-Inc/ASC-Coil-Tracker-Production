@@ -27,8 +27,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             /* Default: sort by ID desc
              * This lets the user sort by ID asc if they choose.
              */
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_asc" : "";
+            ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "id_asc";
 
             // Reset page to 1 if new search string - otherwise, keep filter
             if (searchString != null)
@@ -57,45 +56,27 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             else
             {
-                // TODO: fix this to change to ALL
-                if (currentLengthFilter == null)
-                {
-                    lengthFilter = "NON-DEPLETED";
-                }
-                else
-                {
-                    lengthFilter = currentLengthFilter;
-                }
+                lengthFilter = currentLengthFilter;
             }
             ViewBag.CurrentLengthFilter = lengthFilter;
 
             // Length list initialization
             List<SelectListItem> lengthList = new List<SelectListItem>();
-            if (lengthFilter.Equals("ALL"))
-            {
-                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED" });
-                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL", Selected = true });
-            }
-            else
+            if (lengthFilter == null || lengthFilter.Equals("NON-DEPLETED"))
             {
                 lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED", Selected = true });
                 lengthList.Add(new SelectListItem { Text = "All", Value = "ALL" });
+            }
+            else
+            {
+                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED" });
+                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL", Selected = true });
             }
             ViewBag.LengthList = lengthList;
 
             // Get current length for coil
             var coils = from c in db.Coils
                         select c;
-
-            // Sort by length filter
-            if (!String.IsNullOrEmpty(lengthFilter))
-            {
-                if (lengthFilter.Equals("NON-DEPLETED"))
-                {
-                    coils = coils.Where(c => c.LENGTH > 0.0);
-                }
-                // Else show all coils
-            }
 
             // Let user search by given field
             if (!String.IsNullOrEmpty(searchString))
@@ -139,6 +120,13 @@ namespace ASC_Coil_Tracker_Production.Controllers
                         break;
                 }
             }
+
+            // Sort by length filter
+            if (lengthFilter == null || lengthFilter.Equals("NON-DEPLETED"))
+            {
+                coils = coils.Where(c => c.LENGTH > 0.0);
+            }
+            // Else show all coils
 
             switch (sortOrder)
             {

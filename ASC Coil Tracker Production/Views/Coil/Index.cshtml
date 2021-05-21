@@ -23,7 +23,7 @@
             @Html.Hidden("currentLengthFilter", (string)ViewBag.CurrentLengthFilter);
 
             <label for="lengthFilter">Show:</label>
-            @Html.DropDownList("LengthFilter", new SelectList(ViewBag.LengthList, "Value", "Text", ViewBag.CurrentLengthFilter),
+            @Html.DropDownList("LengthFilter", new SelectList(ViewBag.LengthList, "Value", "Text"),
             new { @id = "lengthFilter", @class = "custom-select mx-2" });
         }
     </div>
@@ -174,7 +174,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     new
     {
         page,
-        sortOrder = ViewBag.CurrentSort,
+        sortOrder = ViewBag.IDSortParm,
         currentFilter = ViewBag.CurrentFilter,
         currentSearchFilter = ViewBag.CurrentSearchFilter,
         currentLengthFilter = ViewBag.CurrentLengthFilter
