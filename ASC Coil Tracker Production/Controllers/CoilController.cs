@@ -83,6 +83,10 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 switch (searchFilter)
                 {
+                    case "ID":
+                        coils = coils.Where(c => c.ID.ToString() == searchString);
+                        break;
+
                     case "COLOR":
                         coils = coils.Where(c => c.COLOR.Contains(searchString));
                         break;
