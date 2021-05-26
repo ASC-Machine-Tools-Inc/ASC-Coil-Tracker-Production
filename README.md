@@ -1,10 +1,19 @@
 ## Setup
 
-Connecting to the database: you'll need the .mdf and .ldf files, which are stored in App_Data.
-If you're setting this up remind me to send you a copy of those, as Github won't store them.
-This should be for development, as the production database is stored on the network on JOBSHEETSPOCK.
+Connecting to the database:
+Make sure to set it to connect to a local database for debugging. To do this, go to Data Access Layer/CoilContext.cs and set the connection name to TEST. It should look like this.
 
-Open the solution file (ASC Coil Tracker Production.sln) and navigate to Views/Coil/Index and hit Ctrl+F5,
-which should build the project and show you the database on localhost.
+
+```
+private const string TEST = "TestDatabase";
+private const string PROD = "name=JOBSHEETSPOCK";
+
+public CoilContext()
+    : base(TEST)
+{
+}
+```
+
+Assuming you're using Visual Studio 2019, open the solution file (ASC Coil Tracker Production.sln) and click the button with the green play button at the top that says IIS Express (browser used), which should build the project and show you the coil tracker on localhost. Having the solution configured for Debug or Release doesn't matter, as the connection string is set to only connect to the production database on publishing.
 
 See Phi Ton (<pton@ascmt.com>) for any help with this process.
