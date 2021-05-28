@@ -16,8 +16,7 @@
             @Html.DropDownList("SearchFilter", new List<SelectListItem>
                {
                    new SelectListItem { Text = "Coil ID", Value = "COILID", Selected=true },
-                   // TODO: fix searching by date
-                   // new SelectListItem { Text = "Date", Value = "DATE"},
+                   new SelectListItem { Text = "Date", Value = "DATE"},
                    new SelectListItem { Text = "Job Number", Value = "JOBNUMBER"},
                    new SelectListItem { Text = "Notes", Value = "NOTES"}
                },
@@ -27,6 +26,7 @@
                 <i class="fas fa-search"></i>
             </button>
         }
+        @Html.ValidationMessage("DateFormatError", new { @class = "text-danger float-right" })
     </div>
 </div>
 
