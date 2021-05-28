@@ -14,14 +14,12 @@
     <div class="col-md-4">
         @using (Html.BeginForm("Index", "Coil", FormMethod.Get))
         {<!-- hidden current fields -->
-            @Html.Hidden("sortOrder", (string)ViewBag.IDSortParm);
-            @Html.Hidden("currentFilter", (string)ViewBag.CurrentFilter);
-            @Html.Hidden("currentSearchFilter", (string)ViewBag.CurrentSearchFilter);
-            @Html.Hidden("currentLengthFilter", (string)ViewBag.CurrentLengthFilter);
+            @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
+            @Html.Hidden("currentFilter", (object)ViewBag.CurrentFilter);
+            @Html.Hidden("currentSearchFilter", (object)ViewBag.CurrentSearchFilter);
 
             <label for="lengthFilter">Show:</label>
-            @Html.DropDownList("LengthFilter", new SelectList(ViewBag.LengthList, "Value", "Text"),
-                 new { @id = "lengthFilter", @class = "custom-select mx-2" });
+            @Html.DropDownList("LengthFilter", (SelectList)ViewBag.LengthList, new { @id = "lengthFilter", @class = "custom-select mx-2" });
         }
     </div>
     <div class="col-md-4">
@@ -30,26 +28,12 @@
             {
                 @class = "form-inline justify-content-end"
             }))
-        {<!-- hidden current fields -->
-            @Html.Hidden("sortOrder", (string)ViewBag.IDSortParm);
-            @Html.Hidden("currentFilter", (string)ViewBag.CurrentFilter);
-            @Html.Hidden("currentSearchFilter", (string)ViewBag.CurrentSearchFilter);
-            @Html.Hidden("currentLengthFilter", (string)ViewBag.CurrentLengthFilter);
+        {
+            <!-- hidden current fields -->
+            @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
+            @Html.Hidden("currentLengthFilter", (object)ViewBag.CurrentLengthFilter);
 
-            @Html.DropDownList("SearchFilter", new List<SelectListItem>
-            {
-                               new SelectListItem { Text = "ID", Value = "ID", Selected=true },
-                               new SelectListItem { Text = "Color", Value = "COLOR"},
-                               new SelectListItem { Text = "Material", Value = "TYPE"},
-                               new SelectListItem { Text = "Gauge", Value = "GAUGE"},
-                               new SelectListItem { Text = "Thickness", Value = "THICK"},
-                               new SelectListItem { Text = "Width", Value = "WIDTH"},
-                               new SelectListItem { Text = "Yield", Value = "YIELD"},
-                               new SelectListItem { Text = "Weight", Value = "WEIGHT"},
-                               new SelectListItem { Text = "Length", Value = "LENGTH"},
-                               new SelectListItem { Text = "Notes", Value = "NOTES"}
-                           },
-                    new { @class = "custom-select mx-2" })
+            @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
             <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
@@ -173,7 +157,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     new
     {
         page,
-        sortOrder = ViewBag.IDSortParm,
+        sortOrder = ViewBag.CurrentSort,
         currentFilter = ViewBag.CurrentFilter,
         currentSearchFilter = ViewBag.CurrentSearchFilter,
         currentLengthFilter = ViewBag.CurrentLengthFilter

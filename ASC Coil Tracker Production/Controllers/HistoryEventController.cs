@@ -49,6 +49,16 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             ViewBag.CurrentSearchFilter = searchFilter;
 
+            // Search select list initialization
+            var searchList = new[]
+            {
+                new SelectListItem { Text = "Coil ID", Value = "COILID"},
+                new SelectListItem { Text = "Date", Value = "DATE"},
+                new SelectListItem { Text = "Job Number", Value = "JOBNUMBER"},
+                new SelectListItem { Text = "Notes", Value = "NOTES"}
+            };
+            ViewBag.SearchList = new SelectList(searchList, "Value", "Text", searchFilter);
+
             var history = from h in db.History
                           select h;
 
