@@ -49,6 +49,16 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             ViewBag.CurrentSearchFilter = searchFilter;
 
+            // Search select list initialization
+            var searchList = new[]
+            {
+                new SelectListItem { Text = "Coil ID", Value = "COILID"},
+                new SelectListItem { Text = "Date", Value = "DATE"},
+                new SelectListItem { Text = "Job Number", Value = "JOBNUMBER"},
+                new SelectListItem { Text = "Notes", Value = "NOTES"}
+            };
+            ViewBag.SearchList = new SelectList(searchList, "Value", "Text", searchFilter);
+
             var history = from h in db.History
                           select h;
 
@@ -63,7 +73,16 @@ namespace ASC_Coil_Tracker_Production.Controllers
 
                     // TODO: fix searching by date
                     case "DATE":
-                        history = history.Where(h => h.DATE.ToString("MM/dd/yyyy").Contains(searchString));
+                        try
+                        {
+                            DateTime searchDate = DateTime.ParseExact(searchString, "MM/dd/yyyy", null);
+                            history = history.Where(h => h.DATE.Equals(searchDate));
+                        }
+                        catch (FormatException /* dex */)
+                        {
+                            // Log the error (uncomment dex and add line here to write log)
+                            ModelState.AddModelError("DateFormatError", "Dates must be in the format (MM/dd/yyyy)!");
+                        }
                         break;
 
                     case "JOBNUMBER":
@@ -156,7 +175,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             catch (RetryLimitExceededException /* dex */)
             {
-                // Log the error (uncomment dex and add line here to write log
+                // Log the error (uncomment dex and add line here to write log)
                 ModelState.AddModelError("", "Unable to create new history record. Make sure you're using a valid" +
                     " Coil ID if not autofilled. Try again, and report the issue in Contacts if the problem persists.");
             }

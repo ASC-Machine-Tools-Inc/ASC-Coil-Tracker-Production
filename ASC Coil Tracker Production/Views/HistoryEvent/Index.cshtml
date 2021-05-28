@@ -13,20 +13,16 @@
     <div class="col-md-6">
         @using (Html.BeginForm("Index", "HistoryEvent", FormMethod.Get, new { @class = "form-inline justify-content-end" }))
         {
-            @Html.DropDownList("SearchFilter", new List<SelectListItem>
-               {
-                   new SelectListItem { Text = "Coil ID", Value = "COILID", Selected=true },
-                   // TODO: fix searching by date
-                   // new SelectListItem { Text = "Date", Value = "DATE"},
-                   new SelectListItem { Text = "Job Number", Value = "JOBNUMBER"},
-                   new SelectListItem { Text = "Notes", Value = "NOTES"}
-               },
-               new { @class = "custom-select mx-2" })
+            <!-- hidden current fields -->
+            @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
+
+            @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
             <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
             </button>
         }
+        @Html.ValidationMessage("DateFormatError", new { @class = "text-danger float-right" })
     </div>
 </div>
 

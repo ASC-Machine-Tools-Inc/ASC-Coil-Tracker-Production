@@ -19,7 +19,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
         private CoilContext db = new CoilContext();
 
         // GET: Coil
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString,
+        public ViewResult Index(string sortOrder,
+            string searchString, string currentFilter,
             string searchFilter, string currentSearchFilter,
             string lengthFilter, string currentLengthFilter,
             int? page)
@@ -27,7 +28,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
             /* Default: sort by ID desc
              * This lets the user sort by ID asc if they choose.
              */
-            ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "id_asc";
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_asc" : "";
 
             // Reset page to 1 if new search string - otherwise, keep filter
             if (searchString != null)
@@ -56,23 +58,41 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             else
             {
-                lengthFilter = currentLengthFilter;
+                if (currentLengthFilter != null)
+                {
+                    lengthFilter = currentLengthFilter;
+                }
+                else
+                {
+                    lengthFilter = "NON-DEPLETED";
+                }
             }
+            System.Diagnostics.Debug.WriteLine("length filter: " + lengthFilter);
             ViewBag.CurrentLengthFilter = lengthFilter;
 
             // Length list initialization
-            List<SelectListItem> lengthList = new List<SelectListItem>();
-            if (lengthFilter == null || lengthFilter.Equals("NON-DEPLETED"))
+            var lengthList = new[]
             {
-                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED", Selected = true });
-                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL" });
-            }
-            else
+                new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED" },
+                new SelectListItem { Text = "All", Value = "ALL" }
+            };
+            ViewBag.LengthList = new SelectList(lengthList, "Value", "Text", lengthFilter);
+
+            // Search select list initialization
+            var searchList = new[]
             {
-                lengthList.Add(new SelectListItem { Text = "Non-depleted", Value = "NON-DEPLETED" });
-                lengthList.Add(new SelectListItem { Text = "All", Value = "ALL", Selected = true });
-            }
-            ViewBag.LengthList = lengthList;
+                new SelectListItem { Text = "ID", Value = "ID" },
+                new SelectListItem { Text = "Color", Value = "COLOR"},
+                new SelectListItem { Text = "Material", Value = "TYPE"},
+                new SelectListItem { Text = "Gauge", Value = "GAUGE"},
+                new SelectListItem { Text = "Thickness", Value = "THICK"},
+                new SelectListItem { Text = "Width", Value = "WIDTH"},
+                new SelectListItem { Text = "Yield", Value = "YIELD"},
+                new SelectListItem { Text = "Weight", Value = "WEIGHT"},
+                new SelectListItem { Text = "Length", Value = "LENGTH"},
+                new SelectListItem { Text = "Notes", Value = "NOTES"}
+            };
+            ViewBag.SearchList = new SelectList(searchList, "Value", "Text", searchFilter);
 
             // Get current length for coil
             var coils = from c in db.Coils
