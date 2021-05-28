@@ -16,7 +16,7 @@ namespace ASC_Coil_Tracker_Production
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Coil", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
