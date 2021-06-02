@@ -32,20 +32,27 @@ function calculateFields() {
     }
     */
 
-    coil_values.weight = coil_values.width * coil_values.density * Math.PI *
-        ((Math.pow((coil_values.od / 2), 2)) -
-            (Math.pow((coil_values.id / 2), 2)));
-    $("#weightInput").val(Math.round(coil_values.weight));
+    coil_values.weight = Math.round(coil_values.width * coil_values.density * Math.PI *
+        ((Math.pow((coil_values.od / 2), 2)) - (Math.pow((coil_values.id / 2), 2))));
+    if (coil_values.weight > 0) {
+        $("#weightInput").val(coil_values.weight);
+    }
 
-    coil_values.length = (coil_values.weight /
-        (coil_values.thickness * coil_values.width * coil_values.density)) / 12;
-    $("#lengthInput").val(Math.round(coil_values.length));
+    coil_values.length = Math.round((coil_values.weight /
+        (coil_values.thickness * coil_values.width * coil_values.density)) / 12);
+    if (coil_values.length > 0) {
+        $("#lengthInput").val(coil_values.length);
+    }
 
     coil_values.piw = coil_values.weight / coil_values.width;
-    $("#piwInput").val(coil_values.piw.toFixed(2));
+    if (coil_values.piw > 0) {
+        $("#piwInput").val(coil_values.piw.toFixed(2));
+    }
 
-    coil_values.area = (coil_values.width / 12) * coil_values.length;
-    $("#areaInput").val(Math.round(coil_values.area));
+    coil_values.area = Math.round((coil_values.width / 12) * coil_values.length);
+    if (coil_values.area > 0) {
+        $("#areaInput").val(coil_values.area);
+    }
 }
 
 $(function () {

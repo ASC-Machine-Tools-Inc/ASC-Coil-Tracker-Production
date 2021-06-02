@@ -8,8 +8,8 @@
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
 */
 .dl-horizontal dt {
     white-space: normal;
@@ -31,4 +31,9 @@ textarea {
 
 .navbar {
     background-color: #3B3F65;
+}
+
+input[readonly].form-control {
+    background-color: #DEDEDE;
+    color: #424242;
 }
