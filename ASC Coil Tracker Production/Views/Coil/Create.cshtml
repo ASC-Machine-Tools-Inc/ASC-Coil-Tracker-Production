@@ -10,7 +10,7 @@
 
 <hr />
 <div class="row">
-    <div class="col-sm">
+    <div class="col-sm-5">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -43,18 +43,18 @@
                 </div>
 
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.THICK, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.THICK, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.THICK, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     @Html.LabelFor(model => model.WIDTH, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.WIDTH, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.WIDTH, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.THICK, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.THICK, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.THICK, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -101,7 +101,19 @@
             </div>
         }
     </div>
-    <div class="col-sm">
+    <div class="col-sm-2 align-self-center text-center">
+        <h4>Copy Fields</h4>
+        <div class="btn-group-vertical">
+            <!-- onclick="this.blur()" removes outline from clicking button -->
+            <button id="swapRightBtn" type="button" class="btn btn-outline-secondary" onclick="this.blur()">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <button id="swapLeftBtn" type="button" class="btn btn-outline-secondary" onclick="this.blur()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+    <div class="col-sm-5">
         <div class="form-horizontal">
             <div class="form-group row">
                 <div class="col-md-6">
@@ -123,7 +135,7 @@
                     <label for="idInput" class="float-right">ID (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right qty" id="idInput" step="0.001" min="0.001">
+                    <input id="idInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
@@ -132,7 +144,7 @@
                     <label for="odInput" class="float-right">OD (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right qty" id="odInput" step="0.001" min="0.001">
+                    <input id="odInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
@@ -141,7 +153,7 @@
                     <label for="widthInput" class="float-right">Width (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right qty" id="widthInput" step="0.001" min="0.001">
+                    <input id="widthInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
@@ -150,7 +162,7 @@
                     <label for="thicknessInput" class="float-right">Thickness (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right qty" id="thicknessInput" step="0.001" min="0.001">
+                    <input id="thicknessInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
@@ -159,7 +171,7 @@
                     <label for="piwInput" class="float-right">PIW (lbs)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right" id="piwInput" readonly>
+                    <input id="piwInput" type="number" class="form-control float-right" readonly>
                 </div>
             </div>
 
@@ -168,7 +180,7 @@
                     <label for="lengthInput" class="float-right">Length (ft)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right" id="lengthInput" readonly>
+                    <input id="lengthInput" type="number" class="form-control float-right" readonly>
                 </div>
             </div>
 
@@ -177,7 +189,7 @@
                     <label for="areaInput" class="float-right">Area (sq ft)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right" id="areaInput" readonly>
+                    <input id="areaInput" type="number" class="form-control float-right" readonly>
                 </div>
             </div>
 
@@ -186,7 +198,7 @@
                     <label for="weightInput" class="float-right">Weight (lbs)</label>
                 </div>
                 <div class="col-md-6">
-                    <input type="number" class="form-control float-right" id="weightInput" readonly>
+                    <input id="weightInput" type="number" class="form-control float-right" readonly>
                 </div>
             </div>
         </div>
@@ -200,4 +212,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/CoilCalculator.js")
+    @Scripts.Render("~/Scripts/CopyFields.js")
 }
