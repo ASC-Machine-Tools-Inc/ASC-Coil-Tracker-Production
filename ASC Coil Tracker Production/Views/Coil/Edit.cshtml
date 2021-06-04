@@ -4,106 +4,215 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit Coil</h2>
+<div class="row justify-content-between">
+    <h2>Edit Coil</h2>
+    <h3>Coil Calculator</h3>
+</div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-sm-5">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.ID, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.ID, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.COLOR, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.COLOR, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.COLOR, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.TYPE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TYPE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TYPE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.GAUGE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GAUGE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GAUGE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.THICK, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.THICK, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.THICK, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.WIDTH, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.WIDTH, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.WIDTH, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.YIELD, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.YIELD, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.YIELD, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.WEIGHT, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.WEIGHT, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.WEIGHT, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.LENGTH, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LENGTH, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LENGTH, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.NOTES, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NOTES, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NOTES, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save
+                        </button>
+                    </div>
+                </div>
             </div>
+        }
+    </div>
+    <div class="col-sm-2 align-self-center text-center">
+        <h4>Copy Fields</h4>
+        <div class="btn-group-vertical">
+            <!-- onclick="this.blur()" removes outline from clicking button -->
+            <button id="swapRightBtn" type="button" class="btn btn-outline-secondary" onclick="this.blur()">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <button id="swapLeftBtn" type="button" class="btn btn-outline-secondary" onclick="this.blur()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
         </div>
-
-        <div class="form-group row">
-            @Html.LabelFor(model => model.COLOR, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.COLOR, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.COLOR, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-sm-5">
+        <div class="form-horizontal">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="densitySelect" class="float-right">Density</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.DropDownList("SearchFilter", new List<SelectListItem>
+                       {
+                           new SelectListItem { Text = "Steel", Value = "STEEL", Selected=true },
+                           new SelectListItem { Text = "Aluminum", Value = "ALUM" },
+                           new SelectListItem { Text = "Copper", Value = "COPPER" }
+                       },
+                       new { @id = "densitySelect", @class = "custom-select float-right qty" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.TYPE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TYPE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TYPE, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="idInput" class="float-right">ID (in)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="idInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.GAUGE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GAUGE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GAUGE, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="odInput" class="float-right">OD (in)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="odInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.THICK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.THICK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.THICK, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="widthInput" class="float-right">Width (in)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="widthInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.WIDTH, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.WIDTH, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WIDTH, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="thicknessInput" class="float-right">Thickness (in)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="thicknessInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.YIELD, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.YIELD, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.YIELD, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="piwInput" class="float-right">PIW (lbs)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="piwInput" type="number" class="form-control float-right" readonly>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.WEIGHT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.WEIGHT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WEIGHT, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="lengthInput" class="float-right">Length (ft)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="lengthInput" type="number" class="form-control float-right" readonly>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.LENGTH, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LENGTH, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LENGTH, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="areaInput" class="float-right">Area (sq ft)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="areaInput" type="number" class="form-control float-right" readonly>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.NOTES, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NOTES, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NOTES, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i>
-                    Save
-                </button>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="weightInput" class="float-right">Weight (lbs)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="weightInput" type="number" class="form-control float-right" readonly>
+                </div>
             </div>
         </div>
     </div>
-}
+</div>
 
 <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
     Back to List
@@ -111,4 +220,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/CoilCalculator.js")
+    @Scripts.Render("~/Scripts/CopyFields.js")
 }
