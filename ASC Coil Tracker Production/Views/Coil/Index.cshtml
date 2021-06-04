@@ -7,7 +7,6 @@
 <div class="row mb-3">
     <div class="col-md-4">
         <a href="@Url.Action("Create")" class="btn btn-primary mb-1">
-            <i class="fas fa-plus"></i>
             Create New Coil Record
         </a>
     </div>
@@ -35,9 +34,6 @@
 
             @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
-            <button type="submit" class="btn btn-default">
-                <i class="fas fa-search"></i>
-            </button>
         }
     </div>
 </div>
