@@ -9,5 +9,14 @@ $('#lengthFilter').on('change', function () {
 $('#searchString').on('input keyup', function () {
     var form = $(this).parents('form');
 
-    form.submit();
+    // form.submit();
+    // $(this).focus().setSelectionRange(1000, 1000);
 });
+
+$(function () {
+    var search = $('#searchString');
+    if (search.val().length > 0) {
+        search.focus();
+        search.setSelectionRange(1000, 1000);
+    }
+})

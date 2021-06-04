@@ -17,7 +17,15 @@
             <li>@Html.ActionLink("Coils", "Index", "Coil", null, new { @class = "nav-item nav-link" })</li>
             <li>@Html.ActionLink("Search History", "Index", "HistoryEvent", null, new { @class = "nav-item nav-link" })</li>
             <li>@Html.ActionLink("Coil Calculator", "Calculator", "Coil", null, new { @class = "nav-item nav-link" })</li>
-            <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-item nav-link" })</li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Help
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    @Html.ActionLink("User Guide", "Guide", "Home", null, new { @class = "dropdown-item" })
+                    @Html.ActionLink("About", "Contact", "Home", null, new { @class = "dropdown-item" })
+                </div>
+            </li>
         </div>
     </div>
     <div class="container-fluid body-content px-5 py-3">

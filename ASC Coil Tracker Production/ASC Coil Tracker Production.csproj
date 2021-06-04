@@ -343,6 +343,7 @@
     <Content Include="Views\HistoryEvent\Edit.cshtml" />
     <Content Include="Views\HistoryEvent\Index.cshtml" />
     <Content Include="Views\Coil\Calculator.cshtml" />
+    <Content Include="Views\Home\Guide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
