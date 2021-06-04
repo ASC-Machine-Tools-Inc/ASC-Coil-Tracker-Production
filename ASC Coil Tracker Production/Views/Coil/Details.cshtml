@@ -101,6 +101,7 @@
                     <th>Amount Used</th>
                     <th>Assigned Job Number</th>
                     <th>Notes</th>
+                    <th></th>
                 </tr>
                 @foreach (var item in Model.COILTABLEHISTORY)
                 {
@@ -116,6 +117,27 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NOTES)
+                        </td>
+                        <td>
+                            <div class="btn-group d-flex" role="group">
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="@Url.Action("Edit", "HistoryEvent", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </a>
+                                    <a href="@Url.Action("Details", "HistoryEvent", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
+                                        <i class="fas fa-info-circle"></i>
+                                        Details
+                                    </a>
+                                    <a href="@Url.Action("Delete", "HistoryEvent", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }
