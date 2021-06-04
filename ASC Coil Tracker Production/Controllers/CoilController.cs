@@ -148,7 +148,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             // Sort by length filter
             if (lengthFilter == null || lengthFilter.Equals("NON-DEPLETED"))
             {
-                coils = coils.Where(c => c.LENGTH > 0.0);
+                coils = coils.Where(c => c.LENGTH > 0.0 || c.LENGTH == null);
             }
             // Else show all coils
 
