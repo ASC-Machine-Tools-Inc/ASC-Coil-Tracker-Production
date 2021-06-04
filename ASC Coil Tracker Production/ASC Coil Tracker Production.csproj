@@ -157,7 +157,7 @@
     <Compile Include="Models\COILTABLE.cs" />
     <Compile Include="Models\COILTABLEHISTORY.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\Print.cs" />
+    <Compile Include="Scripts\helpers\Print.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\roslyn\csc.exe" />
@@ -195,8 +195,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\CoilCalculator.js" />
-    <Content Include="Scripts\CopyFields.js" />
+    <Content Include="Scripts\helpers\CoilCalculator.js" />
+    <Content Include="Scripts\helpers\CopyFields.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -237,7 +237,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\OnLengthFilterChange.js" />
+    <Content Include="Scripts\helpers\OnFilterChange.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />

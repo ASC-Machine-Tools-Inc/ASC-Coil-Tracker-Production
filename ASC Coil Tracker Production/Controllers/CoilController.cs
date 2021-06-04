@@ -81,7 +81,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
             // Search select list initialization
             var searchList = new[]
             {
-                new SelectListItem { Text = "ID", Value = "ID" },
+                new SelectListItem { Text = "All Fields", Value = "ALL"},
+                new SelectListItem { Text = "ID", Value = "ID"},
                 new SelectListItem { Text = "Color", Value = "COLOR"},
                 new SelectListItem { Text = "Material", Value = "TYPE"},
                 new SelectListItem { Text = "Gauge", Value = "GAUGE"},
@@ -103,6 +104,20 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 switch (searchFilter)
                 {
+                    case "ALL":
+                        coils = coils.Where(c =>
+                            c.ID.ToString() == searchString ||
+                            c.COLOR.Contains(searchString) ||
+                            c.TYPE.Contains(searchString) ||
+                            c.GAUGE.Contains(searchString) ||
+                            c.THICK.ToString() == searchString ||
+                            c.WIDTH.ToString() == searchString ||
+                            c.YIELD.ToString() == searchString ||
+                            c.WEIGHT.ToString() == searchString ||
+                            c.LENGTH.ToString() == searchString ||
+                            c.NOTES.Contains(searchString));
+                        break;
+
                     case "ID":
                         coils = coils.Where(c => c.ID.ToString() == searchString);
                         break;

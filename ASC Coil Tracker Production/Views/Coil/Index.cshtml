@@ -34,7 +34,7 @@
             @Html.Hidden("currentLengthFilter", (object)ViewBag.CurrentLengthFilter);
 
             @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
             <button type="submit" class="btn btn-default">
                 <i class="fas fa-search"></i>
             </button>
@@ -164,5 +164,5 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     }))
 
 @section Scripts {
-    @Scripts.Render("~/Scripts/OnLengthFilterChange.js")
+    @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
 }
