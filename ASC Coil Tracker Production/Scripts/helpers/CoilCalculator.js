@@ -21,16 +21,12 @@ function calculateFields() {
     coil_values.width = $("#widthInput").val();
     coil_values.thickness = $("#thicknessInput").val();
 
-    // Exit if invalid values
-    /*
-    if (coil_values.od <= coil_values.id ||
-        coil_values.od <= 0 ||
-        coil_values.id <= 0 ||
-        coil_values.width <= 0 ||
-        coil_values.thickness <= 0) {
-        return;
-    }
-    */
+    // Save calculator fields
+    sessionStorage.setItem("density", $("#densitySelect").val());
+    sessionStorage.setItem("od", coil_values.od);
+    sessionStorage.setItem("id", coil_values.id);
+    sessionStorage.setItem("width", coil_values.width);
+    sessionStorage.setItem("thickness", coil_values.thickness);
 
     coil_values.weight = Math.round(coil_values.width * coil_values.density * Math.PI *
         ((Math.pow((coil_values.od / 2), 2)) - (Math.pow((coil_values.id / 2), 2))));
@@ -56,5 +52,13 @@ function calculateFields() {
 }
 
 $(function () {
+    // On page load, grab stored calculator values.
+    $("#densitySelect").val(sessionStorage.getItem("density"));
+    $("#odInput").val(sessionStorage.getItem("od"));
+    $("#idInput").val(sessionStorage.getItem("id"));
+    $("#widthInput").val(sessionStorage.getItem("width"));
+    $("#thicknessInput").val(sessionStorage.getItem("thickness"));
+    calculateFields();
+
     $(".qty").on("change keyup", calculateFields);
 })
