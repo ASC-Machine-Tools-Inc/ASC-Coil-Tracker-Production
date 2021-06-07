@@ -22,7 +22,7 @@
         }
     </div>
     <div class="col-md-4">
-        @using (Ajax.BeginForm("Index", "Coil", new AjaxOptions { HttpMethod = "Get", OnSuccess = "refresh" },
+        @using (Ajax.BeginForm("Index", "Coil", new AjaxOptions { HttpMethod = "Get" },
             new
             {
                 @id = "searchForm",
