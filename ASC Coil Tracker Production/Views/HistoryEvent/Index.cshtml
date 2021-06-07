@@ -11,16 +11,14 @@
         <p>New records can be added through the Add Record button or details page for a given coil.</p>
     </div>
     <div class="col-md-6">
-        @using (Html.BeginForm("Index", "HistoryEvent", FormMethod.Get, new { @class = "form-inline justify-content-end" }))
+        @using (Ajax.BeginForm("Index", "HistoryEvent", new AjaxOptions { HttpMethod = "Get" },
+            new { @class = "form-inline justify-content-end" }))
         {
             <!-- hidden current fields -->
             @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
 
             @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
-            <button type="submit" class="btn btn-default">
-                <i class="fas fa-search"></i>
-            </button>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
         }
         @Html.ValidationMessage("DateFormatError", new { @class = "text-danger float-right" })
     </div>
@@ -103,3 +101,9 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentSearchFilter = ViewBag.CurrentSearchFilter }))
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
+}

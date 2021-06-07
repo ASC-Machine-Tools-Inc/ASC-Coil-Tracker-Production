@@ -67,7 +67,6 @@ namespace ASC_Coil_Tracker_Production.Controllers
                     lengthFilter = "NON-DEPLETED";
                 }
             }
-            System.Diagnostics.Debug.WriteLine("length filter: " + lengthFilter);
             ViewBag.CurrentLengthFilter = lengthFilter;
 
             // Length list initialization
@@ -106,20 +105,20 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 {
                     case "ALL":
                         coils = coils.Where(c =>
-                            c.ID.ToString() == searchString ||
+                            c.ID.ToString().Contains(searchString) ||
                             c.COLOR.Contains(searchString) ||
                             c.TYPE.Contains(searchString) ||
                             c.GAUGE.Contains(searchString) ||
-                            c.THICK.ToString() == searchString ||
-                            c.WIDTH.ToString() == searchString ||
-                            c.YIELD.ToString() == searchString ||
-                            c.WEIGHT.ToString() == searchString ||
-                            c.LENGTH.ToString() == searchString ||
+                            c.THICK.ToString().Contains(searchString) ||
+                            c.WIDTH.ToString().Contains(searchString) ||
+                            c.YIELD.ToString().Contains(searchString) ||
+                            c.WEIGHT.ToString().Contains(searchString) ||
+                            c.LENGTH.ToString().Contains(searchString) ||
                             c.NOTES.Contains(searchString));
                         break;
 
                     case "ID":
-                        coils = coils.Where(c => c.ID.ToString() == searchString);
+                        coils = coils.Where(c => c.ID.ToString().Contains(searchString));
                         break;
 
                     case "COLOR":
@@ -135,23 +134,23 @@ namespace ASC_Coil_Tracker_Production.Controllers
                         break;
 
                     case "THICK":
-                        coils = coils.Where(c => c.THICK.ToString() == searchString);
+                        coils = coils.Where(c => c.THICK.ToString().Contains(searchString));
                         break;
 
                     case "WIDTH":
-                        coils = coils.Where(c => c.WIDTH.ToString() == searchString);
+                        coils = coils.Where(c => c.WIDTH.ToString().Contains(searchString));
                         break;
 
                     case "YIELD":
-                        coils = coils.Where(c => c.YIELD.ToString() == searchString);
+                        coils = coils.Where(c => c.YIELD.ToString().Contains(searchString));
                         break;
 
                     case "WEIGHT":
-                        coils = coils.Where(c => c.WEIGHT.ToString() == searchString);
+                        coils = coils.Where(c => c.WEIGHT.ToString().Contains(searchString));
                         break;
 
                     case "LENGTH":
-                        coils = coils.Where(c => c.LENGTH.ToString() == searchString);
+                        coils = coils.Where(c => c.LENGTH.ToString().Contains(searchString));
                         break;
 
                     case "NOTES":
