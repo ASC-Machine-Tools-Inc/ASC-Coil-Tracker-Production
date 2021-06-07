@@ -71,10 +71,10 @@ namespace ASC_Coil_Tracker_Production.Controllers
                         history = history.Where(h => h.COILID.ToString().Contains(searchString));
                         break;
 
-                    // TODO: fix searching by date
                     case "DATE":
                         try
                         {
+                            // Possibly add support for partial dates?
                             DateTime searchDate = DateTime.ParseExact(searchString, "MM/dd/yyyy", null);
                             history = history.Where(h => h.DATE.Equals(searchDate));
                         }

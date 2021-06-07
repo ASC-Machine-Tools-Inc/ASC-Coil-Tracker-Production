@@ -7,7 +7,6 @@
 <div class="row mb-3">
     <div class="col-md-4">
         <a href="@Url.Action("Create")" class="btn btn-primary mb-1">
-            <i class="fas fa-plus"></i>
             Create New Coil Record
         </a>
     </div>
@@ -23,9 +22,10 @@
         }
     </div>
     <div class="col-md-4">
-        @using (Html.BeginForm("Index", "Coil", FormMethod.Get,
+        @using (Ajax.BeginForm("Index", "Coil", new AjaxOptions { HttpMethod = "Get" },
             new
             {
+                @id = "searchForm",
                 @class = "form-inline justify-content-end"
             }))
         {
@@ -34,10 +34,7 @@
             @Html.Hidden("currentLengthFilter", (object)ViewBag.CurrentLengthFilter);
 
             @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search" })
-            <button type="submit" class="btn btn-default">
-                <i class="fas fa-search"></i>
-            </button>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
         }
     </div>
 </div>
@@ -164,5 +161,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     }))
 
 @section Scripts {
-    @Scripts.Render("~/Scripts/OnLengthFilterChange.js")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
 }

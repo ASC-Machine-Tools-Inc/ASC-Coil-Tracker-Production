@@ -29,8 +29,9 @@ namespace ASC_Coil_Tracker_Production.Models
         [Display(Name = "Material")]
         public string TYPE { get; set; }
 
-        [Required]
+        [RegularExpression(@"^#+([4-9]|[1-2][0-9]|30)$", ErrorMessage = "Must start with a # and be in the range 4 to 30.")]
         [StringLength(50)]
+        [Required]
         [Display(Name = "Gauge")]
         public string GAUGE { get; set; }
 
