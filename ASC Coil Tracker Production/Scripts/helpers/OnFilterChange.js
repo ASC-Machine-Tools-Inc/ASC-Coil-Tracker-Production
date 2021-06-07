@@ -6,17 +6,15 @@ $('#lengthFilter').on('change', function () {
 });
 
 // Update view whenever search field changed
-$('#searchString').on('input keyup', function () {
+$('#searchString').on('input', function () {
     var form = $(this).parents('form');
 
-    // form.submit();
-    // $(this).focus().setSelectionRange(1000, 1000);
+    form.submit();
 });
 
-$(function () {
-    var search = $('#searchString');
-    if (search.val().length > 0) {
-        search.focus();
-        search.setSelectionRange(1000, 1000);
-    }
-})
+// Refresh view with results from search field
+function refresh(result) {
+    $("body").html(result);
+    $('#searchString').focus();
+    $('#searchString')[0].setSelectionRange(1000, 1000);
+}

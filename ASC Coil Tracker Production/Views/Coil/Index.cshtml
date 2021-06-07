@@ -22,7 +22,7 @@
         }
     </div>
     <div class="col-md-4">
-        @using (Html.BeginForm("Index", "Coil", FormMethod.Get,
+        @using (Ajax.BeginForm("Index", "Coil", new AjaxOptions { HttpMethod = "Get", OnSuccess = "refresh" },
             new
             {
                 @id = "searchForm",
@@ -161,5 +161,7 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     }))
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
 }
