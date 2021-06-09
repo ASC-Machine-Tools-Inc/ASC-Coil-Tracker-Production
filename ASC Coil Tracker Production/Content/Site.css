@@ -37,3 +37,7 @@ input[readonly].form-control {
     background-color: #DEDEDE;
     color: #424242;
 }
+
+#searchString {
+    width: 100%;
+}

@@ -1,15 +1,49 @@
 ﻿@{
     ViewBag.Title = "User Guide";
 }
-<h2>@ViewBag.Title.</h2>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
 </head>
-<body>
-    <div>
+<body data-spy="scroll" data-target="#toc">
+    <div class="row">
+        <!-- sidebar, which will move to the top on a small screen -->
+        <div class="col-sm-3">
+            <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+        </div>
+        <!-- main content area -->
+        <div class="col-sm-9">
+            <h1>@ViewBag.Title</h1>
+
+            <h2>Coils</h2>
+            <h3>Creating a coil</h3>
+            <p>Filler text.</p>
+
+            <h3>Deleting a coil</h3>
+            <p>Filler text.</p>
+
+            <h3>Coil actions</h3>
+            <p>Filler text.</p>
+
+            <h3>Coil searching and filtering</h3>
+            <p>Filler text.</p>
+
+            <h2>Search History</h2>
+            <h3>Creating a history record</h3>
+            <p>Filler text.</p>
+
+            <h3>History actions</h3>
+            <p>Filler text.</p>
+
+            <h3>History searching and filtering</h3>
+            <p>Filler text.</p>
+
+            <h2>Coil Calculator</h2>
+            <h3>Usage</h3>
+            <p>Filler text.</p>
+        </div>
     </div>
 </body>
 </html>
