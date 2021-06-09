@@ -140,7 +140,10 @@ namespace ASC_Coil_Tracker_Production.Controllers
         public ActionResult Create(int? coilID)
         {
             ViewBag.CoilID = coilID;
-            return View();
+
+            var model = new COILTABLEHISTORY();
+            model.DATE = DateTime.Today;
+            return View(model);
         }
 
         // POST: HistoryEvent/Create
