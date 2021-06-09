@@ -137,7 +137,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         }
 
         // GET: HistoryEvent/Create
-        public ActionResult Create(int coilID)
+        public ActionResult Create(int? coilID)
         {
             ViewBag.CoilID = coilID;
             return View();
@@ -210,7 +210,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLEHISTORY historyEvent = db.History.Find(id);
-            int oldAmountUsed = (int)historyEvent.AMOUNTUSED;
+            int oldAmountUsed = (int)historyEvent.AMOUNTUSED.GetValueOrDefault();
             if (TryUpdateModel(historyEvent, "",
                new string[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES" }))
             {
