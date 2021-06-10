@@ -40,7 +40,7 @@ namespace PrintLogic
             ZPLString += "^FO150,850^ADB,36,20^FD" + GAUGE + "^FS"; //SEND TEXT OBJECT
             ZPLString += "^FO150,475^ADB,36,20^FD" + THICK + "^FS"; //SEND TEXT OBJECT
             ZPLString += "^FO150,50^ADB,36,20^FD" + WEIGHT + "^FS"; //SEND TEXT OBJECT
-            ZPLString += "^FO250,750^ADB,36,20^FD" + MATERIAL + "^FS"; //SEND TEXT OBJECT
+            ZPLString += "^FO250,650^ADB,36,20^FD" + MATERIAL + "^FS"; //SEND TEXT OBJECT
             ZPLString += "^FO250,50^ADB,36,20^FD" + FINISH + "^FS"; //SEND TEXT OBJECT
             ZPLString += "^FO350,650^ADB,36,20^FD" + WIDTH + "^FS"; //SEND TEXT OBJECT
             ZPLString += "^FO350,50^ADB,36,20^FD" + YIELD + "^FS"; //SEND TEXT OBJECT
