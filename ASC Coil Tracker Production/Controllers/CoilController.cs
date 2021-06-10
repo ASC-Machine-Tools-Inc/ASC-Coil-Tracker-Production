@@ -330,7 +330,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
         {
             COILTABLE coil = db.Coils.Find(id);
             var printer = new Print();
-            printer.PrintCoil(coil.ID.ToString(), coil.COLOR, coil.TYPE, coil.GAUGE, coil.THICK, coil.WEIGHT, coil.LENGTH, coil.WIDTH, coil.YIELD);
+            printer.PrintCoil(coil.ID.ToString(), coil.COLOR, coil.TYPE, coil.GAUGE, coil.THICK,
+                coil.WEIGHT, coil.LENGTH, coil.WIDTH, coil.YIELD, coil.NOTES);
             return RedirectToAction("Index");
         }
 
