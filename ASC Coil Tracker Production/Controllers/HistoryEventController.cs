@@ -75,13 +75,19 @@ namespace ASC_Coil_Tracker_Production.Controllers
                         try
                         {
                             // Possibly add support for partial dates?
-                            DateTime searchDate = DateTime.ParseExact(searchString, "MM/dd/yyyy", null);
-                            history = history.Where(h => h.DATE.Equals(searchDate));
+                            int searchDate = int.Parse(searchString);
+                            history = history.Where(h =>
+                                h.DATE.Day == searchDate ||
+                                h.DATE.Month == searchDate ||
+                                h.DATE.Year == searchDate);
+
+                            // DateTime searchDate = DateTime.ParseExact(searchString, "MM/dd/yyyy", null);
+                            // history = history.Where(h => h.DATE.Equals(searchDate));
                         }
                         catch (FormatException /* dex */)
                         {
                             // Log the error (uncomment dex and add line here to write log)
-                            ModelState.AddModelError("DateFormatError", "Dates must be in the format (MM/dd/yyyy)!");
+                            ModelState.AddModelError("DateFormatError", "Your search must be a number!");
                         }
                         break;
 
