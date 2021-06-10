@@ -8,41 +8,101 @@
     <title></title>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    <div class="row">
-        <!-- sidebar, which will move to the top on a small screen -->
-        <div class="col-sm-3">
-            <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
-        </div>
-        <!-- main content area -->
-        <div class="col-sm-9">
-            <h1>@ViewBag.Title</h1>
+    <div class="container">
+        <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+                <nav id="toc" data-toggle="toc" class="sticky-top"></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
+                <h1>@ViewBag.Title</h1>
+                <p>
+                    For any questions not answered on this page, you can reach us on the
+                    <a href="/Home/Contact">Contact</a> page.
+                </p>
 
-            <h2>Coils</h2>
-            <h3>Creating a coil</h3>
-            <p>Filler text.</p>
+                <h2>Coils</h2>
+                <h3>Creating a coil</h3>
+                <ol>
+                    <li>
+                        Navigate to the <strong>Coils</strong> page from the top
+                        navigation bar.
+                    </li>
+                    <li>
+                        Click on the <strong>Create New Coil Record</strong> button in
+                        the top left under the navigation bar.
+                    </li>
+                    <li>
+                        Fill out the fields on the left and click the <strong>Create</strong>
+                        button at the bottom when you're done.
+                        <ul>
+                            <li>
+                                The fields on the right are not required, but
+                                can be used to calculate information for the coil: see the section
+                                on the <a href="#coil-calculator">coil calculator</a> for more info.
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
 
-            <h3>Deleting a coil</h3>
-            <p>Filler text.</p>
+                <h3>Deleting a coil</h3>
+                <p>
+                    Coil records are persistent to keep records of all coils, even ones used up (where
+                    the length is 0). To view these depleted coils, see the guide for the
+                    <a href="#coil-searching-and-filtering">non-depleted/all filter</a>.
+                </p>
 
-            <h3>Coil actions</h3>
-            <p>Filler text.</p>
+                <h3>Editing a coil's information</h3>
+                <p>
+                    For a given coil, you can edit its information under its <strong>Actions</strong>
+                    button by clicking <strong>Edit</strong>. Editing is the same as
+                    <a href="#creating-a-coil">creating a coil</a>, as the same fields are still required.
+                </p>
 
-            <h3>Coil searching and filtering</h3>
-            <p>Filler text.</p>
+                <h3>Printing a coil's information</h3>
+                <p>
+                    For a given coil, you can print its information under its <strong>Actions</strong>
+                    button by clicking <strong>Print</strong>.
+                </p>
 
-            <h2>Search History</h2>
-            <h3>Creating a history record</h3>
-            <p>Filler text.</p>
+                <h3>Other coil actions</h3>
+                <p>Filler text.</p>
 
-            <h3>History actions</h3>
-            <p>Filler text.</p>
+                <h3>Coil searching and filtering</h3>
+                <h4>Non-depleted/all filter</h4>
+                <p>
+                    By default, only coils with a length greater than 0 or no length are shown.
+                    To view the depleted coils:
+                    <ol>
+                        <li>
+                            Navigate to the <strong>Coils</strong> page from the top
+                            navigation bar.
+                        </li>
+                        <li>
+                            Click on the <strong>Show:</strong> dropdown in the top middle under the
+                            navigation bar, which has non-depleted coils as its default.
+                        </li>
+                        <li>
+                            Switching to <strong>All</strong> will show you all coils.
+                        </li>
+                    </ol>
+                </p>
 
-            <h3>History searching and filtering</h3>
-            <p>Filler text.</p>
+                <h2>Search History</h2>
+                <h3>Creating a history record</h3>
+                <p>Filler text.</p>
 
-            <h2>Coil Calculator</h2>
-            <h3>Usage</h3>
-            <p>Filler text.</p>
+                <h3>History actions</h3>
+                <p>Filler text.</p>
+
+                <h3>History searching and filtering</h3>
+                <p>Filler text.</p>
+
+                <h2>Coil Calculator</h2>
+                <h3>Usage</h3>
+                <p>Filler text.</p>
+            </div>
         </div>
     </div>
 </body>
