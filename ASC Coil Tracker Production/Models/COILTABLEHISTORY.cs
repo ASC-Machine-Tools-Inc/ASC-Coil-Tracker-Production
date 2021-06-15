@@ -12,7 +12,7 @@ namespace ASC_Coil_Tracker_Production.Models
         public int ID { get; set; }
 
         [Column(TypeName = "smalldatetime")]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date (MM/dd/yyyy)")]
         public DateTime DATE { get; set; }
 

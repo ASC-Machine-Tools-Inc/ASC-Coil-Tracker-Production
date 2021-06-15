@@ -18,29 +18,33 @@
             @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
 
             @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Type to start searching" })
         }
         @Html.ValidationMessage("DateFormatError", new { @class = "text-danger float-right" })
     </div>
 </div>
 
-<table class="table">
+<table class="table table-sm">
     <tr>
         <th>
-            @Html.ActionLink("Coil ID", "Index", new
+            <a href="@Url.Action("Index", new
             {
                 sortOrder = ViewBag.IDSortParm,
                 currentFilter = ViewBag.CurrentFilter,
                 currentSearchFilter = ViewBag.CurrentSearchFilter
-            })
+            })">
+                Coil ID<i class="fa fa-fw fa-sort"></i>
+            </a>
         </th>
         <th>
-            @Html.ActionLink("Date", "Index", new
+            <a href="@Url.Action("Index", new
             {
-                sortOrder = ViewBag.DateSortParm,
+                sortOrder = ViewBag.IDSortParm,
                 currentFilter = ViewBag.CurrentFilter,
                 currentSearchFilter = ViewBag.CurrentSearchFilter
-            })
+            })">
+                Date<i class="fa fa-fw fa-sort"></i>
+            </a>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().AMOUNTUSED)

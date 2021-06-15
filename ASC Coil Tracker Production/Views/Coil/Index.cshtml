@@ -34,21 +34,23 @@
             @Html.Hidden("currentLengthFilter", (object)ViewBag.CurrentLengthFilter);
 
             @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Type to start searching" })
         }
     </div>
 </div>
 
-<table class="table">
+<table class="table table-sm">
     <tr>
         <th>
-            @Html.ActionLink("ID", "Index", new
+            <a href="@Url.Action("Index", new
             {
                 sortOrder = ViewBag.IDSortParm,
                 currentFilter = ViewBag.CurrentFilter,
                 currentSearchFilter = ViewBag.CurrentSearchFilter,
                 currentLengthFilter = ViewBag.CurrentLengthFilter
-            })
+            })">
+                ID<i class="fa fa-fw fa-sort"></i>
+            </a>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().COLOR)
@@ -145,23 +147,24 @@
                 </div>
             </td>
         </tr>
+
     }
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new
-    {
-        page,
-        sortOrder = ViewBag.CurrentSort,
-        currentFilter = ViewBag.CurrentFilter,
-        currentSearchFilter = ViewBag.CurrentSearchFilter,
-        currentLengthFilter = ViewBag.CurrentLengthFilter
-    }))
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new
+        {
+            page,
+            sortOrder = ViewBag.CurrentSort,
+            currentFilter = ViewBag.CurrentFilter,
+            currentSearchFilter = ViewBag.CurrentSearchFilter,
+            currentLengthFilter = ViewBag.CurrentLengthFilter
+        }))
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
-    @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+        @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
+    }
