@@ -1,4 +1,4 @@
-﻿var changed = false;
+﻿var timeout = null;
 
 // Update view whenever length filter changed (non-depleted/all)
 $('#lengthFilter').on('change', function () {
@@ -7,14 +7,12 @@ $('#lengthFilter').on('change', function () {
     form.submit();
 });
 
-// Update view whenever search field changed
+// Update view whenever search field changed and user done typing.
 $('#searchString').on('input', function () {
-    changed = true;
-});
+    clearTimeout(timeout);
 
-// Watch for changes to search field
-setInterval(function () {
-    if (changed) {
+    // Clear timeout if already set, preventing update.
+    timeout = setTimeout(function () {
         var form = $('#searchString').parents('form');
 
         $.ajax({
@@ -26,7 +24,7 @@ setInterval(function () {
                 $('#searchString')[0].setSelectionRange(1000, 1000);
             }
         });
-
-        changed = false;
-    }
-}, 1);
+    }, 250);
+    // Need a longer timeout since querying production database is slower
+    // than locally. Whoops!
+});
