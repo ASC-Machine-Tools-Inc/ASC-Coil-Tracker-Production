@@ -9,7 +9,7 @@ namespace ASC_Coil_Tracker_Production.Data_Access_Layer
     public partial class CoilContext : DbContext
     {
         private const string TEST = "TestDatabase";
-        private const string PROD = "name=JOBSHEETSPOCK";
+        private const string PROD = "name=db_a6e98a_kitsuragi";
 
         public CoilContext()
             : base(TEST)
