@@ -4,10 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
-    <script src="https://kit.fontawesome.com/d1b8b99eb8.js" crossorigin="anonymous"></script>
     <title>@ViewBag.Title - ASC Coil Tracker</title>
+
+    <!-- Non render-blocking resources -->
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/d1b8b99eb8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="navbar navbar-expand-lg navbar-dark">
