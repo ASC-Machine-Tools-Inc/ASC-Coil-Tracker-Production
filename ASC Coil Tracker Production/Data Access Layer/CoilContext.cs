@@ -8,8 +8,10 @@ namespace ASC_Coil_Tracker_Production.Data_Access_Layer
 {
     public partial class CoilContext : DbContext
     {
+#pragma warning disable IDE0051 // Remove unused private members
         private const string TEST = "TestDatabase";
         private const string PROD = "name=db_a6e98a_kitsuragi";
+#pragma warning restore IDE0051 // Remove unused private members
 
         public CoilContext()
             : base(TEST)
@@ -19,6 +21,8 @@ namespace ASC_Coil_Tracker_Production.Data_Access_Layer
         public virtual DbSet<COILTABLE> Coils { get; set; }
 
         public virtual DbSet<COILTABLEHISTORY> History { get; set; }
+
+        public virtual DbSet<USERS> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
