@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -31,15 +33,19 @@ namespace ASC_Coil_Tracker_Production.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string email, string password_hash)
+        public async Task<ActionResult> Login([Bind(Include = "Email,PasswordHash")] USERS user)
         {
             if (ModelState.IsValid)
             {
-                string hashedPw = password_hash.GetHashCode().ToString();
-                IQueryable<USERS> result = db.Users.Where(u => u.EMAIL.Equals(email) && u.PASSWORD_HASH.Equals(hashedPw));
+                string hashedPw = user.PasswordHash.GetHashCode().ToString();
+                IQueryable<USERS> result = db.Users.Where(u => u.Email.Equals(user.Email) &&
+                                                               u.PasswordHash.Equals(hashedPw));
 
                 if (result.Any())
                 {
+                    // If user not added, create new identity.
+                    Session["Email"] = user.Email;
+
                     return RedirectToAction("Index", "Coil");
                 }
                 else
@@ -49,6 +55,12 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
 
             return View();
+        }
+
+        public void Logout()
+        {
+            Session.Abandon();
+            Response.Redirect("Login");
         }
     }
 }

@@ -6,17 +6,17 @@ namespace ASC_Coil_Tracker_Production.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("USER")]
+    [Table("USERS")]
     public partial class USERS
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Required]
-        public string EMAIL { get; set; }
+        public string Email { get; set; }
 
         [DataType(DataType.Password)]
         [Required]
-        public string PASSWORD_HASH { get; set; }
+        public string PasswordHash { get; set; }
     }
 }

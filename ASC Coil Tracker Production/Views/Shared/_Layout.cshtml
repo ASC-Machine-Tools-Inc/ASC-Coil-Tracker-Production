@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.UI.WebControls
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,7 +18,7 @@
     <div class="navbar navbar-expand-lg navbar-dark">
         @Html.ActionLink("ASC Coil Tracker", "Index", "Coil", new { area = "" }, new { @class = "navbar-brand" })
 
-        <div class="navbar-nav mr-auto">
+        <div class="navbar-nav w-100">
             <li>@Html.ActionLink("Coils", "Index", "Coil", null, new { @class = "nav-item nav-link text-light" })</li>
             <li>@Html.ActionLink("Search History", "Index", "HistoryEvent", null, new { @class = "nav-item nav-link text-light" })</li>
             <li>@Html.ActionLink("Coil Calculator", "Calculator", "Coil", null, new { @class = "nav-item nav-link text-light" })</li>
@@ -29,6 +30,17 @@
                     @Html.ActionLink("User Guide", "Guide", "Home", null, new { @class = "dropdown-item" })
                     @Html.ActionLink("About", "Contact", "Home", null, new { @class = "dropdown-item" })
                 </div>
+            </li>
+            <li class="ml-auto mr-4">
+                @if (Session["Email"] != null)
+                {
+                    <span class="text-light">@Session["Email"]</span>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+                }
+                else
+                {
+                    @Html.ActionLink("Login", "Login", "Home", null, new { @class = "btn btn-primary" })
+                }
             </li>
         </div>
     </div>

@@ -31,6 +31,8 @@ namespace ASC_Coil_Tracker_Production.Data_Access_Layer
                 .WithRequired(e => e.COILTABLE)
                 .HasForeignKey(e => e.COILID)
                 .WillCascadeOnDelete(true);
+
+            Database.SetInitializer<CoilContext>(null);
         }
     }
 }
