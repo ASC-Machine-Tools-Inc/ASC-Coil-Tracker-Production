@@ -209,7 +209,6 @@
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\helpers\DisableEnterSubmit.js" />
-    <Content Include="Scripts\helpers\Logout.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -364,6 +363,7 @@
     <Content Include="Views\Home\Guide.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="WebDeploy.config" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

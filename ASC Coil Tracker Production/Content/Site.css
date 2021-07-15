@@ -29,8 +29,46 @@ textarea {
     max-width: 280px;
 }
 
+/* Fancy navbar hover stuff */
 .navbar {
     background-color: #3B3F65;
+}
+
+.nav-item {
+    color: #EFF0F0;
+    display: inline-block;
+    position: relative;
+}
+
+    .nav-item::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        transform-origin: bottom right;
+        transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    .nav-item:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+
+.dropdown-item:active {
+    color: black;
+}
+
+.dropdown-item:hover {
+    background-color: #e8e8e8;
+}
+
+.dropdown-toggle::after {
+    margin-left: -.1em;
+    border: 0;
 }
 
 input[readonly].form-control {
