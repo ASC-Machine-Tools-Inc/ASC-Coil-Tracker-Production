@@ -10,7 +10,14 @@
 </address>
 
 <address>
-    <strong>Report any issues with the coil tracker:</strong>   <a href="mailto:pton@ascmt.com">pton@ascmt.com</a><br />
+    <strong>Report any issues with the coil tracker, or help with login:</strong>
+    <a href="mailto:pton@ascmt.com">pton@ascmt.com</a>
+    <br />
 </address>
 
 <p>Copyright 2021 - Phi Ton and Bryan Doramus</p>
+
+@if (Session["Email"] == null)
+{
+    @Html.ActionLink("Back to Login", "Login", "Home", null, new { @class = "btn btn-primary" })
+}
