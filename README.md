@@ -21,3 +21,7 @@ __Make sure you always change this back to PROD if you're opening a pull request
 Assuming you're using Visual Studio 2019, open the solution file (ASC Coil Tracker Production.sln) and click the button with the green play button at the top that says IIS Express (browser used), which should build the project and show you the coil tracker on localhost.
 
 See Phi Ton (<pton@ascmt.com>) for any help with this process.
+
+## Admin
+
+Logging in with the admin account will give you the dropdown option `Add New User` when clicking on the account email in the top right on the navigation bar. Please email me for these credentials, along with the login for the database.

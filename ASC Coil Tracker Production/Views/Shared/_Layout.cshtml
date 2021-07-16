@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.UI.WebControls
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -14,24 +15,46 @@
     <script src="https://kit.fontawesome.com/d1b8b99eb8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="navbar navbar-expand-lg navbar-dark">
-        @Html.ActionLink("ASC Coil Tracker", "Index", "Coil", new { area = "" }, new { @class = "navbar-brand" })
+    @if (Session["Email"] != null)
+    {
+        <div class="navbar navbar-expand-lg navbar-dark">
+            @Html.ActionLink("ASC Coil Tracker", "Index", "Coil", new { area = "" }, new { @class = "navbar-brand" })
 
-        <div class="navbar-nav mr-auto">
-            <li>@Html.ActionLink("Coils", "Index", "Coil", null, new { @class = "nav-item nav-link" })</li>
-            <li>@Html.ActionLink("Search History", "Index", "HistoryEvent", null, new { @class = "nav-item nav-link" })</li>
-            <li>@Html.ActionLink("Coil Calculator", "Calculator", "Coil", null, new { @class = "nav-item nav-link" })</li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Help
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    @Html.ActionLink("User Guide", "Guide", "Home", null, new { @class = "dropdown-item" })
-                    @Html.ActionLink("About", "Contact", "Home", null, new { @class = "dropdown-item" })
+            <div class="navbar-nav w-100">
+                @Html.ActionLink("Coils", "Index", "Coil", null, new { @class = "nav-item nav-link text-light" })
+                @Html.ActionLink("Search History", "Index", "HistoryEvent", null, new { @class = "nav-item nav-link text-light" })
+                @Html.ActionLink("Coil Calculator", "Calculator", "Coil", null, new { @class = "nav-item nav-link text-light" })
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Help
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("User Guide", "Guide", "Home", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("About", "Contact", "Home", null, new { @class = "dropdown-item" })
+                    </div>
                 </div>
-            </li>
+                <div class="ml-auto mr-3">
+                    <div class="row">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light mx-3" href="#" id="navbarAccountDropdown"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Session["Email"]
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarAccountDropdown">
+                                @if (Session["Email"].Equals("coiladmin@ascmt.com"))
+                                {
+                                    @Html.ActionLink("Add New User", "AddUser", "Home", null, new { @class = "dropdown-item" })
+                                }
+                                @Html.ActionLink("Change Password", "ChangePassword", "Home", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Log Out", "Logout", "Home", null, new { @class = "dropdown-item" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    }
+
     <div class="container-fluid body-content px-5 py-3">
         @RenderBody()
         <hr />

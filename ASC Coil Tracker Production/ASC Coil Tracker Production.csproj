@@ -154,6 +154,7 @@
       <DependentUpon>202105261459312_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\USERS.cs" />
     <Compile Include="Models\COILTABLE.cs" />
     <Compile Include="Models\COILTABLEHISTORY.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,8 +192,9 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\coil_label.jpg" />
+    <Content Include="Content\Images\login_bg.jpg" />
+    <Content Include="Content\Images\background.png" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -360,6 +362,10 @@
     <Content Include="Views\HistoryEvent\Index.cshtml" />
     <Content Include="Views\Coil\Calculator.cshtml" />
     <Content Include="Views\Home\Guide.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="WebDeploy.config" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Home\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

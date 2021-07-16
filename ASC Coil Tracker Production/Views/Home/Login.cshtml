@@ -1,0 +1,80 @@
+﻿@model ASC_Coil_Tracker_Production.Models.USERS
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<!-- Redirect to default page if logged in -->
+@if (Session["Email"] != null)
+{
+    Response.Redirect("~/Coil/Index");
+}
+<div class="d-flex align-items-center py-3 py-md-0">
+    <div class="container">
+        <div class="card login-card">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src="../../Content/Images/login_bg.jpg" alt="login" class="login-card-img">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <div class="brand-wrapper">
+                            <img src="../../Content/favicon.ico" alt="logo" />
+                            <h1>ASC Coil Tracker</h1>
+                        </div>
+                        <p class="login-card-description">Sign into your account</p>
+                        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <label for="Email" class="login-control">Email address</label>
+                                <div class="row m-auto">
+                                    @Html.EditorFor(model => model.Email,
+                                        new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control login-control",
+                                                @placeholder = "yourname@ascmt.com"
+                                            }
+                                        })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger ml-3" })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="PasswordHash" class="login-control">Password</label>
+                                <div class="row m-auto">
+                                    @Html.EditorFor(model => model.PasswordHash,
+                                        new
+                                        {
+                                            htmlAttributes = new
+                                            {
+                                                @class = "form-control login-control",
+                                                @placeholder = "***********"
+                                            }
+                                        })
+                                    @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger ml-3" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessage("LoginError", "", new { @class = "text-danger" })
+                            </div>
+                            <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Login">
+                        }
+                        @Html.ActionLink("Forgot password or don't have an account?",
+                            "Contact", "Home", null,
+                            new { @class = "forgot-password-link" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

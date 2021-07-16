@@ -9,7 +9,6 @@ namespace ASC_Coil_Tracker_Production.Models
     [Table("COILTABLE")]
     public partial class COILTABLE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public COILTABLE()
         {
             COILTABLEHISTORY = new HashSet<COILTABLEHISTORY>();
@@ -59,7 +58,6 @@ namespace ASC_Coil_Tracker_Production.Models
         [Range(0.001, 72.000, ErrorMessage = "Enter a length between 0.000 and 72.000")]
         public double? WIDTH { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COILTABLEHISTORY> COILTABLEHISTORY { get; set; }
     }
 }
