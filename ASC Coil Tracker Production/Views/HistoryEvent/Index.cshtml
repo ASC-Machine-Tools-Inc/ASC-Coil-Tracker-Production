@@ -9,7 +9,8 @@
 <!-- Show prompt if not logged in -->
 @if (Session["Email"] == null)
 {
-    <span>You must be logged in!</span>
+    <span>You must be logged in to view this page!</span>
+    @Html.ActionLink("Back to Login", "Login", "Home")
 }
 else
 {
