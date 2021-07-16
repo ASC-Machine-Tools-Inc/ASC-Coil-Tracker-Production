@@ -16,6 +16,7 @@ namespace ASC_Coil_Tracker_Production.Models
         public string Email { get; set; }
 
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         [Required]
         public string PasswordHash { get; set; }
     }
