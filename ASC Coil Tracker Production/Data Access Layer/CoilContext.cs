@@ -14,7 +14,7 @@ namespace ASC_Coil_Tracker_Production.Data_Access_Layer
 #pragma warning restore IDE0051 // Remove unused private members
 
         public CoilContext()
-            : base(TEST)
+            : base(PROD)
         {
         }
 
