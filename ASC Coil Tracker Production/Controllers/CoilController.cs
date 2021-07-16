@@ -262,7 +262,8 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
             var coilToUpdate = db.Coils.Find(id);
             if (TryUpdateModel(coilToUpdate, "",
-               new string[] { "COLOR", "TYPE", "GAUGE", "THICK", "WEIGHT", "LENGTH", "NOTES", "YIELD", "WIDTH" }))
+               new string[] { "COLOR", "TYPE", "GAUGE", "THICK",
+                   "WEIGHT", "LENGTH", "NOTES", "YIELD", "WIDTH" }))
             {
                 try
                 {
@@ -273,7 +274,9 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 catch (RetryLimitExceededException /* dex */)
                 {
                     // Log the error (uncomment dex and add line here to write log
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                                                 "Try again, and if the problem persists, " +
+                                                 "see your system administrator.");
                 }
             }
             return View(coilToUpdate);

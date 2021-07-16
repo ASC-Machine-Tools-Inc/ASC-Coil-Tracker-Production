@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -48,12 +50,11 @@ namespace ASC_Coil_Tracker_Production.Controllers
 
                     return RedirectToAction("Index", "Coil");
                 }
-                else
-                {
-                    return RedirectToAction("Login");
-                }
             }
 
+            ModelState.AddModelError("LoginError",
+                "There was an error with logging in. Please " +
+                "double-check your login and retry.");
             return View();
         }
 
@@ -61,6 +62,61 @@ namespace ASC_Coil_Tracker_Production.Controllers
         {
             Session.Abandon();
             Response.Redirect("Login");
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("ChangePassword")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePasswordPost()
+        {
+            if (Request.Form["OldPassword"] == null ||
+                Request.Form["NewPassword"] == null)
+            {
+                ModelState.AddModelError("ChangeError",
+                    "Please fill out all fields.");
+                return ChangePassword();
+            }
+
+            string currEmail = Session["Email"].ToString();
+            string hashedPw = Request.Form["OldPassword"].GetHashCode().ToString();
+            var userQuery = db.Users.Where(u =>
+                u.Email.Equals(currEmail) &&
+                u.PasswordHash.Equals(hashedPw));
+
+            // Check user exists with the current email and entered password.
+            if (userQuery.Any())
+            {
+                USERS userToUpdate = userQuery.FirstOrDefault();
+                userToUpdate.PasswordHash = Request.Form["NewPassword"]
+                    .GetHashCode().ToString();
+
+                if (TryUpdateModel(userToUpdate))
+                {
+                    try
+                    {
+                        // Save changes and logout on a successful update.
+                        db.SaveChanges();
+                        return RedirectToAction("Logout");
+                    }
+                    catch (RetryLimitExceededException /* dex */)
+                    {
+                        // Log the error (uncomment dex and add line here to write log
+                        ModelState.AddModelError("ChangeError",
+                            "Unable to save changes. " +
+                            "Try again, and if the problem persists, " +
+                            "see your system administrator.");
+                    }
+                }
+            }
+
+            ModelState.AddModelError("ChangeError",
+                    "Error updating password. Please check your input " +
+                    "and retry.");
+            return ChangePassword();
         }
     }
 }
