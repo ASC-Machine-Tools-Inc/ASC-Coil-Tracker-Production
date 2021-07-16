@@ -114,9 +114,47 @@ namespace ASC_Coil_Tracker_Production.Controllers
             }
 
             ModelState.AddModelError("ChangeError",
-                    "Error updating password. Please check your input " +
-                    "and retry.");
+                "Error updating password. Please check your input " +
+                "and retry.");
             return ChangePassword();
+        }
+
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("AddUser")]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUserPost([Bind(Include = "Email,PasswordHash")] USERS user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    // Check that the email is not already in the database.
+                    if (db.Users.Any(u => u.Email.Equals(user.Email)))
+                    {
+                        ModelState.AddModelError("AddUserError", "Email already in database.");
+                        return View();
+                    }
+
+                    // Hash the password.
+                    user.PasswordHash = user.PasswordHash.GetHashCode().ToString();
+
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Coil");
+                }
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                // Log the error (uncomment dex and add line here to write log)
+                ModelState.AddModelError("AddUserError", "Unable to create new user - " +
+                                                         "RetryLimitExceededException.");
+            }
+
+            return View();
         }
     }
 }

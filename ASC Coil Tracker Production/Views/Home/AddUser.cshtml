@@ -1,0 +1,41 @@
+﻿@model ASC_Coil_Tracker_Production.Models.USERS
+
+@{
+    ViewBag.Title = "Add User";
+}
+
+@if (Session["Email"].Equals("coiladmin@ascmt.com"))
+{
+    <h1>SECRET ADMIN POWER: Add User</h1>
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "",
+            new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.PasswordHash, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.ValidationMessage("AddUserError", "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </div>
+    }
+}
+else
+{
+    <span>You need admin privileges to access this page!</span>
+    @Html.ActionLink("Back to Login", "Login", "Home")
+}

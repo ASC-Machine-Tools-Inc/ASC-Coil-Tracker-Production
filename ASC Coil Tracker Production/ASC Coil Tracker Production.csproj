@@ -365,6 +365,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="WebDeploy.config" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Home\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
