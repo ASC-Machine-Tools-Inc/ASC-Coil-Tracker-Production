@@ -31,82 +31,78 @@ else
         </div>
     </div>
 
-    <table class="table table-sm">
-        <tr>
-            <th>
-                <a href="@Url.Action("Index", new
-            {
-                sortOrder = ViewBag.IDSortParm,
-                currentFilter = ViewBag.CurrentFilter,
-                currentSearchFilter = ViewBag.CurrentSearchFilter
-            })">
-                    Coil ID<i class="fa fa-fw fa-sort"></i>
-                </a>
-            </th>
-            <th>
-                <a href="@Url.Action("Index", new
-            {
-                sortOrder = ViewBag.IDSortParm,
-                currentFilter = ViewBag.CurrentFilter,
-                currentSearchFilter = ViewBag.CurrentSearchFilter
-            })">
-                    Date<i class="fa fa-fw fa-sort"></i>
-                </a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().AMOUNTUSED)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().JOBNUMBER)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
-            </th>
-            <th></th>
-        </tr>
+    <div class="container-fluid container-table p-0">
+        <table class="table m-0">
+            <thead>
+                <tr>
+                    <th>
+                        <a href="@Url.Action("Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter, currentSearchFilter = ViewBag.CurrentSearchFilter })" class="a-sort">
+                            Coil ID<i class="fa fa-fw fa-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter, currentSearchFilter = ViewBag.CurrentSearchFilter })" class="a-sort">
+                            Date<i class="fa fa-fw fa-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().AMOUNTUSED)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().JOBNUMBER)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink((item.COILID).ToString(), "Details", "Coil", new { id = item.COILID }, null)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DATE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AMOUNTUSED)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JOBNUMBER)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NOTES)
+                        </td>
+                        <td>
+                            <div class="btn-group d-flex" role="group">
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="@Url.Action("Edit", new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </a>
+                                    <a href="@Url.Action("Details", new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
+                                        <i class="fas fa-info-circle"></i>
+                                        Details
+                                    </a>
+                                    <a href="@Url.Action("Delete", new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink((item.COILID).ToString(), "Details", "Coil", new { id = item.COILID }, null)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DATE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AMOUNTUSED)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.JOBNUMBER)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NOTES)
-                </td>
-                <td>
-                    <div class="btn-group d-flex" role="group">
-                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                            Actions
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="@Url.Action("Edit", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
-                                <i class="fas fa-edit"></i>
-                                Edit
-                            </a>
-                            <a href="@Url.Action("Details", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
-                                <i class="fas fa-info-circle"></i>
-                                Details
-                            </a>
-                            <a href="@Url.Action("Delete", new { id=item.ID })" class="btn btn-outline-primary dropdown-item">
-                                <i class="fas fa-trash"></i>
-                                Delete
-                            </a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        }
-    </table>
     <br />
 
     @Html.PagedListPager(Model, page => Url.Action("Index",

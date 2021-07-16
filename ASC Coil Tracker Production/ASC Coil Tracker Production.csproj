@@ -193,6 +193,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\coil_label.jpg" />
     <Content Include="Content\Images\login_bg.jpg" />
+    <Content Include="Content\Images\background.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />

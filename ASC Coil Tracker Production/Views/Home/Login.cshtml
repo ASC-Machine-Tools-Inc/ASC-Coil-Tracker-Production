@@ -4,6 +4,11 @@
     ViewBag.Title = "Login";
 }
 
+<!-- Redirect to default page if logged in -->
+@if (Session["Email"] != null)
+{
+    Response.Redirect("~/Coil/Index");
+}
 <div class="d-flex align-items-center min-vh-100 py-3 py-md-0">
     <div class="container">
         <div class="card login-card">

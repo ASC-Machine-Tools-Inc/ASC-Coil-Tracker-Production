@@ -13,10 +13,12 @@ namespace ASC_Coil_Tracker_Production
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            var defaultRoute = new { controller = "Home", action = "Login", id = UrlParameter.Optional };
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Coil", action = "Index", id = UrlParameter.Optional }
+                defaults: defaultRoute
             );
         }
     }

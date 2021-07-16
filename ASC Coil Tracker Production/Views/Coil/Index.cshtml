@@ -39,118 +39,118 @@
     </div>
 </div>
 
-<table class="table table-sm">
-    <tr>
-        <th>
-            <a href="@Url.Action("Index", new
+<div class="container-fluid container-table p-0">
+    <table class="table m-0">
+        <thead>
+            <tr>
+                <th>
+                    <a href="@Url.Action("Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter, currentSearchFilter = ViewBag.CurrentSearchFilter, currentLengthFilter = ViewBag.CurrentLengthFilter })" class="a-sort">
+                        ID<i class="fa fa-fw fa-sort"></i>
+                    </a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().COLOR)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().TYPE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().GAUGE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().LENGTH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                sortOrder = ViewBag.IDSortParm,
-                currentFilter = ViewBag.CurrentFilter,
-                currentSearchFilter = ViewBag.CurrentSearchFilter,
-                currentLengthFilter = ViewBag.CurrentLengthFilter
-            })">
-                ID<i class="fa fa-fw fa-sort"></i>
-            </a>
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().COLOR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().TYPE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().GAUGE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().LENGTH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
-        </th>
-        <th></th>
-    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.COLOR)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TYPE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GAUGE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.THICK)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WIDTH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.YIELD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WEIGHT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LENGTH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NOTES)
+                    </td>
+                    <td>
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                                Actions
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="@Url.Action("Print", new {id = item.ID})" class="dropdown-item">
+                                    <i class="fas fa-print"></i>
+                                    Print
+                                </a>
+                                <a href="@Url.Action("Edit", new {id = item.ID})" class="dropdown-item">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </a>
+                                <a href="@Url.Action("Details", new {id = item.ID})" class="dropdown-item">
+                                    <i class="fas fa-info-circle"></i>
+                                    Details
+                                </a>
+                                <a href="@Url.Action("Create", "HistoryEvent", new {coilID = item.ID})" class="dropdown-item">
+                                    <i class="fas fa-plus"></i>
+                                    Add Record
+                                </a>
+                                <!-- delete functionality disabled for coils
+                                <a href="@Url.Action("Delete", new {id = item.ID})" class="dropdown-item">
+                                    <i class="fas fa-trash"></i>
+                                    Delete
+                                </a>
+                                -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.COLOR)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TYPE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GAUGE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.THICK)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WIDTH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.YIELD)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WEIGHT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LENGTH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NOTES)
-            </td>
-            <td>
-                <div class="btn-group d-flex" role="group">
-                    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                        Actions
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="@Url.Action("Print", new { id=item.ID })" class="dropdown-item">
-                            <i class="fas fa-print"></i>
-                            Print
-                        </a>
-                        <a href="@Url.Action("Edit", new { id=item.ID })" class="dropdown-item">
-                            <i class="fas fa-edit"></i>
-                            Edit
-                        </a>
-                        <a href="@Url.Action("Details", new { id=item.ID })" class="dropdown-item">
-                            <i class="fas fa-info-circle"></i>
-                            Details
-                        </a>
-                        <a href="@Url.Action("Create", "HistoryEvent", new { coilID = item.ID })" class="dropdown-item">
-                            <i class="fas fa-plus"></i>
-                            Add Record
-                        </a>
-                        <!-- delete functionality disabled for coils
-                        <a href="@Url.Action("Delete", new { id=item.ID })" class="dropdown-item">
-                            <i class="fas fa-trash"></i>
-                            Delete
-                        </a>
-                            -->
-                    </div>
-                </div>
-            </td>
-        </tr>
-
-    }
-</table>
 <br />
+
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index",

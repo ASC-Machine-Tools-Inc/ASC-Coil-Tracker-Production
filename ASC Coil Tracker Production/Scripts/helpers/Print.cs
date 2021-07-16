@@ -54,16 +54,16 @@ namespace PrintLogic
 
             try
             {
-                //// Open connection
+                // Open connection
                 System.Net.Sockets.TcpClient client = new System.Net.Sockets.TcpClient();
                 client.Connect(IPAddress, Port);
 
-                //// Write ZPL String to connection
+                // Write ZPL String to connection
                 StreamWriter writer = new StreamWriter(client.GetStream());
                 writer.Write(ZPLString);
                 writer.Flush();
 
-                //// Close Connection
+                // Close connection
                 writer.Close();
                 client.Close();
             }
@@ -72,7 +72,7 @@ namespace PrintLogic
                 // Catch Exception
                 Console.WriteLine(ex);
             }
-            Console.Read();
+            // Console.Read();
         }
     }
 }
