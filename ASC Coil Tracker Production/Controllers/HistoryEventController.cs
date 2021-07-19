@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using System.Data.Entity.Infrastructure;
-using ASC_Coil_Tracker_Production.Data_Access_Layer;
+﻿using ASC_Coil_Tracker_Production.Data_Access_Layer;
 using ASC_Coil_Tracker_Production.Models;
 using PagedList;
+using System;
+using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace ASC_Coil_Tracker_Production.Controllers
 {

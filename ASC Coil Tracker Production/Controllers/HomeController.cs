@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using ASC_Coil_Tracker_Production.Data_Access_Layer;
+﻿using ASC_Coil_Tracker_Production.Data_Access_Layer;
 using ASC_Coil_Tracker_Production.Models;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace ASC_Coil_Tracker_Production.Controllers
 {

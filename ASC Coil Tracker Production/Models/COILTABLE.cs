@@ -4,7 +4,6 @@ namespace ASC_Coil_Tracker_Production.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("COILTABLE")]
     public partial class COILTABLE

@@ -1,13 +1,7 @@
-﻿using System;
+﻿using ASC_Coil_Tracker_Production.Logging;
 using System.Data.Common;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
-using System.Data.Entity.SqlServer;
-using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Reflection;
-using System.Linq;
-using ASC_Coil_Tracker_Production.Logging;
 
 // For successful queries or commands, writes an Information log with latency information.
 // For exceptions, it writes an Error log.
@@ -64,6 +58,7 @@ namespace ASC_Coil_Tracker_Production.Data_Access_Layer
             base.ReaderExecuting(command, interceptionContext);
             _stopwatch.Restart();
         }
+
         public override void ReaderExecuted(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
         {
             _stopwatch.Stop();

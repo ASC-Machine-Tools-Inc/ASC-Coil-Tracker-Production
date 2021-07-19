@@ -1,13 +1,10 @@
-﻿using System;
+﻿using ASC_Coil_Tracker_Production.Logging;
+using System;
 using System.Data.Common;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
-using System.Data.Entity.SqlServer;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Reflection;
 using System.Linq;
-using ASC_Coil_Tracker_Production.Logging;
+using System.Reflection;
 
 // Generates dummy transient errors when "Throw" is entered in the search box for testing.
 

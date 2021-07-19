@@ -1,8 +1,5 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
 using ASC_Coil_Tracker_Production.Models;
+using System.Data.Entity;
 
 namespace ASC_Coil_Tracker_Production.Data_Access_Layer
 {
