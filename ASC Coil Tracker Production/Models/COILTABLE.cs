@@ -15,13 +15,11 @@ namespace ASC_Coil_Tracker_Production.Models
 
         public int ID { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$", ErrorMessage = "Must contain only letters and start with a capital.")]
         [StringLength(50)]
         [Required]
         [Display(Name = "Color/Finish")]
         public string COLOR { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z]*$", ErrorMessage = "Must contain only letters and start with a capital.")]
         [StringLength(50)]
         [Required]
         [Display(Name = "Material")]
