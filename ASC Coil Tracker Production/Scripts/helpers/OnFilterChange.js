@@ -7,6 +7,7 @@ $('#lengthFilter').on('change', function () {
     form.submit();
 });
 
+/* Disable for now: Buggy with constant updating, might fix with caching index.
 // Update view whenever search field changed and user done typing.
 $('#searchString').on('input', function () {
     clearTimeout(timeout);
@@ -28,3 +29,4 @@ $('#searchString').on('input', function () {
     // Need a longer timeout since querying production database is slower
     // than locally. Whoops!
 });
+*/
