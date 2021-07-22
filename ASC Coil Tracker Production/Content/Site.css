@@ -59,17 +59,16 @@ textarea {
         transform-origin: bottom left;
     }
 
+    .nav-item.dropdown {
+        margin-left: -.1em;
+    }
+
 .dropdown-item:active {
     color: black;
 }
 
 .dropdown-item:hover {
     background-color: #e8e8e8;
-}
-
-.dropdown-toggle::after {
-    margin-left: -.1em;
-    border: 0;
 }
 
 input[readonly].form-control {
