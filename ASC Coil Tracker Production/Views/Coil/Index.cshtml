@@ -15,6 +15,7 @@ else
     <div class="row mb-3">
         <div class="col-md-4">
             <a href="@Url.Action("Create")" class="btn btn-primary mb-1">
+                <i class="fas fa-plus"></i>
                 Create New Coil Record
             </a>
         </div>
@@ -30,12 +31,17 @@ else
                 ;
 
                 <label for="lengthFilter">Show:</label>
-                @Html.DropDownList("LengthFilter", (SelectList)ViewBag.LengthList, new { @id = "lengthFilter", @class = "custom-select mx-2" })
+                @Html.DropDownList("LengthFilter", (SelectList)ViewBag.LengthList,
+                    new
+                         {
+                             @id = "lengthFilter",
+                             @class = "custom-select mx-2"
+                         })
                 ;
             }
         </div>
         <div class="col-md-4">
-            @using (Ajax.BeginForm("Index", "Coil", new AjaxOptions { HttpMethod = "Get" },
+            @using (Html.BeginForm("Index", "Coil", FormMethod.Get,
                 new
                 {
                     @id = "searchForm",
@@ -48,18 +54,31 @@ else
                 @Html.Hidden("currentLengthFilter", (object)ViewBag.CurrentLengthFilter)
                 ;
 
-                @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Type to start searching" })
+                @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList,
+                    new { @class = "custom-select mx-2" })
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+                    new
+                         {
+                             @id = "searchString",
+                             @class = "form-control",
+                             @placeholder = "Search"
+                         })
             }
         </div>
     </div>
 
-    <div class="container-fluid container-table p-0">
+    <div class="container-fluid container-table table-responsive p-0">
         <table class="table m-0">
             <thead>
                 <tr>
                     <th>
-                        <a href="@Url.Action("Index", new {sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter, currentSearchFilter = ViewBag.CurrentSearchFilter, currentLengthFilter = ViewBag.CurrentLengthFilter})" class="a-sort">
+                        <a href="@Url.Action("Index",
+                                     new {
+                                         sortOrder = ViewBag.IDSortParm,
+                                         currentFilter = ViewBag.CurrentFilter,
+                                         currentSearchFilter = ViewBag.CurrentSearchFilter,
+                                         currentLengthFilter = ViewBag.CurrentLengthFilter})"
+                           class="a-sort">
                             ID<i class="fa fa-fw fa-sort"></i>
                         </a>
                     </th>
@@ -73,19 +92,22 @@ else
                         @Html.DisplayNameFor(model => model.FirstOrDefault().GAUGE)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().LENGTH)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().LENGTH)
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().CUSTOMER)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
@@ -110,21 +132,24 @@ else
                             @Html.DisplayFor(modelItem => item.GAUGE)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.THICK)
+                            @Html.DisplayFor(modelItem => item.WIDTH)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WIDTH)
+                            @Html.DisplayFor(modelItem => item.THICK)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.YIELD)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WEIGHT)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.LENGTH)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.WEIGHT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CUSTOMER)
+                        </td>
+                        <td class="clamp">
                             @Html.DisplayFor(modelItem => item.NOTES)
                         </td>
                         <td>

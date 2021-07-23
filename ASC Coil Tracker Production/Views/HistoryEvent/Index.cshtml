@@ -26,13 +26,13 @@ else
                 @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
 
                 @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Type to start searching" })
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
             }
             @Html.ValidationMessage("DateFormatError", new { @class = "text-danger float-right" })
         </div>
     </div>
 
-    <div class="container-fluid container-table p-0">
+    <div class="container-fluid container-table table-responsive p-0">
         <table class="table m-0">
             <thead>
                 <tr>
@@ -51,6 +51,9 @@ else
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().JOBNUMBER)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().PURPOSE)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
@@ -75,6 +78,9 @@ else
                             @Html.DisplayFor(modelItem => item.JOBNUMBER)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.PURPOSE)
+                        </td>
+                        <td class="clamp">
                             @Html.DisplayFor(modelItem => item.NOTES)
                         </td>
                         <td>

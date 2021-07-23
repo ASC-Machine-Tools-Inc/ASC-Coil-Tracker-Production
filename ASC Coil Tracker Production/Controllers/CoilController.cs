@@ -82,11 +82,12 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 new SelectListItem { Text = "Color", Value = "COLOR"},
                 new SelectListItem { Text = "Material", Value = "TYPE"},
                 new SelectListItem { Text = "Gauge", Value = "GAUGE"},
-                new SelectListItem { Text = "Thickness", Value = "THICK"},
                 new SelectListItem { Text = "Width", Value = "WIDTH"},
+                new SelectListItem { Text = "Thickness", Value = "THICK"},
                 new SelectListItem { Text = "Yield", Value = "YIELD"},
-                new SelectListItem { Text = "Weight", Value = "WEIGHT"},
                 new SelectListItem { Text = "Length", Value = "LENGTH"},
+                new SelectListItem { Text = "Weight", Value = "WEIGHT"},
+                new SelectListItem { Text = "Customer", Value = "CUSTOMER"},
                 new SelectListItem { Text = "Notes", Value = "NOTES"}
             };
             ViewBag.SearchList = new SelectList(searchList, "Value", "Text", searchFilter);
@@ -130,24 +131,28 @@ namespace ASC_Coil_Tracker_Production.Controllers
                         coils = coils.Where(c => c.GAUGE.Contains(searchString));
                         break;
 
-                    case "THICK":
-                        coils = coils.Where(c => c.THICK.ToString().Contains(searchString));
-                        break;
-
                     case "WIDTH":
                         coils = coils.Where(c => c.WIDTH.ToString().Contains(searchString));
+                        break;
+
+                    case "THICK":
+                        coils = coils.Where(c => c.THICK.ToString().Contains(searchString));
                         break;
 
                     case "YIELD":
                         coils = coils.Where(c => c.YIELD.ToString().Contains(searchString));
                         break;
 
+                    case "LENGTH":
+                        coils = coils.Where(c => c.LENGTH.ToString().Contains(searchString));
+                        break;
+
                     case "WEIGHT":
                         coils = coils.Where(c => c.WEIGHT.ToString().Contains(searchString));
                         break;
 
-                    case "LENGTH":
-                        coils = coils.Where(c => c.LENGTH.ToString().Contains(searchString));
+                    case "CUSTOMER":
+                        coils = coils.Where(c => c.CUSTOMER.Contains(searchString));
                         break;
 
                     case "NOTES":
@@ -211,7 +216,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COLOR,TYPE,GAUGE,THICK,WEIGHT,LENGTH,NOTES,YIELD,WIDTH")] COILTABLE coil)
+        public ActionResult Create([Bind(Include = "COLOR,TYPE,GAUGE,THICK,WEIGHT,LENGTH,NOTES,YIELD,WIDTH,CUSTOMER")] COILTABLE coil)
         {
             try
             {
@@ -260,7 +265,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
             var coilToUpdate = db.Coils.Find(id);
             if (TryUpdateModel(coilToUpdate, "",
                new string[] { "COLOR", "TYPE", "GAUGE", "THICK",
-                   "WEIGHT", "LENGTH", "NOTES", "YIELD", "WIDTH" }))
+                   "WEIGHT", "LENGTH", "NOTES", "YIELD", "WIDTH", "CUSTOMER" }))
             {
                 try
                 {

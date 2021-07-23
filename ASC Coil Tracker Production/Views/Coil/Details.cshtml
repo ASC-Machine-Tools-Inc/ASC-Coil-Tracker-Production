@@ -40,13 +40,6 @@
                 </dd>
 
                 <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.THICK)
-                </dt>
-                <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.THICK)
-                </dd>
-
-                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.WIDTH)
                 </dt>
                 <dd class="col-sm-9">
@@ -54,10 +47,24 @@
                 </dd>
 
                 <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.THICK)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.THICK)
+                </dd>
+
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.YIELD)
                 </dt>
                 <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.YIELD)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.LENGTH)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.LENGTH)
                 </dd>
 
                 <dt class="col-sm-3">
@@ -75,10 +82,10 @@
                 </dd>
 
                 <dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.LENGTH)
+                    @Html.DisplayNameFor(model => model.CUSTOMER)
                 </dt>
                 <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.LENGTH)
+                    @Html.DisplayFor(model => model.CUSTOMER)
                 </dd>
 
                 <dt class="col-sm-3">
@@ -101,6 +108,7 @@
                     <th>Amount Used</th>
                     <th>Assigned Job Number</th>
                     <th>Notes</th>
+                    <th>Purpose</th>
                     <th></th>
                 </tr>
                 @foreach (var item in Model.COILTABLEHISTORY)
@@ -117,6 +125,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NOTES)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PURPOSE)
                         </td>
                         <td>
                             <div class="btn-group d-flex" role="group">

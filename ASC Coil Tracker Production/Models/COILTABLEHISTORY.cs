@@ -22,9 +22,13 @@ namespace ASC_Coil_Tracker_Production.Models
         [Display(Name = "Assigned Job Number")]
         public string JOBNUMBER { get; set; }
 
-        [StringLength(50, ErrorMessage = "Notes cannot be longer than 50 characters.")]
+        [StringLength(100, ErrorMessage = "Notes cannot be longer than 100 characters.")]
         [Display(Name = "Notes")]
         public string NOTES { get; set; }
+
+        // Radio button choice for buyoff/testing
+        [Display(Name = "Purpose")]
+        public string PURPOSE { get; set; }
 
         [Display(Name = "Coil ID")]
         public int COILID { get; set; }
