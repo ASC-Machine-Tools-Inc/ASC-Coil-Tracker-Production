@@ -30,7 +30,12 @@ else
                 ;
 
                 <label for="lengthFilter">Show:</label>
-                @Html.DropDownList("LengthFilter", (SelectList)ViewBag.LengthList, new { @id = "lengthFilter", @class = "custom-select mx-2" })
+                @Html.DropDownList("LengthFilter", (SelectList)ViewBag.LengthList,
+                    new
+                         {
+                             @id = "lengthFilter",
+                             @class = "custom-select mx-2"
+                         })
                 ;
             }
         </div>
@@ -66,7 +71,13 @@ else
             <thead>
                 <tr>
                     <th>
-                        <a href="@Url.Action("Index", new {sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter, currentSearchFilter = ViewBag.CurrentSearchFilter, currentLengthFilter = ViewBag.CurrentLengthFilter})" class="a-sort">
+                        <a href="@Url.Action("Index",
+                                     new {
+                                         sortOrder = ViewBag.IDSortParm,
+                                         currentFilter = ViewBag.CurrentFilter,
+                                         currentSearchFilter = ViewBag.CurrentSearchFilter,
+                                         currentLengthFilter = ViewBag.CurrentLengthFilter})"
+                           class="a-sort">
                             ID<i class="fa fa-fw fa-sort"></i>
                         </a>
                     </th>
@@ -80,19 +91,22 @@ else
                         @Html.DisplayNameFor(model => model.FirstOrDefault().GAUGE)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().LENGTH)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().LENGTH)
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().CUSTOMER)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
@@ -117,19 +131,22 @@ else
                             @Html.DisplayFor(modelItem => item.GAUGE)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.THICK)
+                            @Html.DisplayFor(modelItem => item.WIDTH)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WIDTH)
+                            @Html.DisplayFor(modelItem => item.THICK)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.YIELD)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.LENGTH)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.WEIGHT)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LENGTH)
+                            @Html.DisplayFor(modelItem => item.CUSTOMER)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NOTES)

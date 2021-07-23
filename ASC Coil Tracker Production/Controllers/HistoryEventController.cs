@@ -150,7 +150,7 @@ namespace ASC_Coil_Tracker_Production.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COILID,DATE,AMOUNTUSED,JOBNUMBER,NOTES")] COILTABLEHISTORY historyEvent)
+        public ActionResult Create([Bind(Include = "COILID,DATE,AMOUNTUSED,JOBNUMBER,NOTES,PURPOSE")] COILTABLEHISTORY historyEvent)
         {
             try
             {
@@ -211,10 +211,12 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             COILTABLEHISTORY historyEvent = db.History.Find(id);
+
             int oldAmountUsed = (int)historyEvent.AMOUNTUSED.GetValueOrDefault();
             if (TryUpdateModel(historyEvent, "",
-               new string[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES" }))
+               new string[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES", "PURPOSE" }))
             {
                 try
                 {

@@ -55,6 +55,9 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().PURPOSE)
+                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -76,6 +79,9 @@ else
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NOTES)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PURPOSE)
                         </td>
                         <td>
                             <div class="btn-group d-flex" role="group">

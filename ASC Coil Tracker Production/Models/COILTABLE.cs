@@ -43,7 +43,7 @@ namespace ASC_Coil_Tracker_Production.Models
         [Range(0.0, Int32.MaxValue, ErrorMessage = "Length must be non-negative.")]
         public double? LENGTH { get; set; }
 
-        [StringLength(50, ErrorMessage = "Notes cannot be longer than 30 characters.")]
+        [StringLength(100, ErrorMessage = "Notes cannot be longer than 100 characters.")]
         [Display(Name = "Notes")]
         public string NOTES { get; set; }
 
@@ -54,6 +54,10 @@ namespace ASC_Coil_Tracker_Production.Models
         [Display(Name = "Width (in)")]
         [Range(0.001, 72.000, ErrorMessage = "Enter a length between 0.000 and 72.000")]
         public double? WIDTH { get; set; }
+
+        [StringLength(50, ErrorMessage = "Customer name cannot be longer than 50 characters.")]
+        [Display(Name = "Customer")]
+        public string CUSTOMER { get; set; }
 
         public virtual ICollection<COILTABLEHISTORY> COILTABLEHISTORY { get; set; }
     }
