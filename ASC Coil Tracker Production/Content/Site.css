@@ -192,10 +192,6 @@ thead {
         background-color: #d8d8d8;
     }
 
-#notes-col {
-    width: 40%;
-}
-
 tr:hover {
     background-color: #f8f8f8;
 }
@@ -228,3 +224,10 @@ tr:hover {
         transform: scaleX(1);
         transform-origin: bottom left;
     }
+
+.clamp {
+    max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
