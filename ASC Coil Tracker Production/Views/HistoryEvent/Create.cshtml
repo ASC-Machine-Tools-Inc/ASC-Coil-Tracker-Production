@@ -59,14 +59,15 @@
             @Html.LabelFor(model => model.PURPOSE, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="PURPOSE" id="buyoffRadio" value="Buyoff" checked>
-                    <label class="form-check-label" for="buyoffRadio">
+                    <label class="m-0">
+                        @Html.RadioButtonFor(model => model.PURPOSE, "Buyoff",
+                            new { @checked = "true" })
                         Buyoff
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="PURPOSE" id="testingRadio" value="Testing">
-                    <label class="form-check-label" for="testingRadio">
+                    <label class="m-0">
+                        @Html.RadioButtonFor(model => model.PURPOSE, "Testing")
                         Testing
                     </label>
                 </div>
