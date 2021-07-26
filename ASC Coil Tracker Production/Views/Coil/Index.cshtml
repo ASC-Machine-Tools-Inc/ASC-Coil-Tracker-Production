@@ -37,7 +37,6 @@ else
                              @id = "lengthFilter",
                              @class = "custom-select mx-2"
                          })
-                ;
             }
         </div>
         <div class="col-md-4">
@@ -56,6 +55,8 @@ else
 
                 @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList,
                     new { @class = "custom-select mx-2" })
+
+                <!--
                 @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
                     new
                          {
@@ -63,6 +64,25 @@ else
                              @class = "form-control",
                              @placeholder = "Search"
                          })
+                -->
+
+                <div class="input-group search-input-group">
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+                        new
+                        {
+                            @id = "searchString",
+                            @class = "form-control border-right-0",
+                            @placeholder = "Search"
+                        })
+
+                    <!-- Search button -->
+                    <span class="input-group-append">
+                        <button type="submit"
+                                class="btn btn-outline-secondary border-left-0">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
             }
         </div>
     </div>

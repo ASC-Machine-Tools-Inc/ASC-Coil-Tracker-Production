@@ -25,8 +25,26 @@ else
                 <!-- hidden current fields -->
                 @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
 
-                @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
+                @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList,
+                    new { @class = "custom-select mx-2" })
+
+                <div class="input-group search-input-group">
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+                        new
+                        {
+                            @id = "searchString",
+                            @class = "form-control border-right-0",
+                            @placeholder = "Search"
+                        })
+
+                    <!-- Search button -->
+                    <span class="input-group-append">
+                        <button type="submit"
+                                class="btn btn-outline-secondary border-left-0">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
             }
             @Html.ValidationMessage("DateFormatError", new { @class = "text-danger float-right" })
         </div>
