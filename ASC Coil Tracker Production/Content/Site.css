@@ -226,7 +226,7 @@ tr:hover {
     }
 
 .clamp {
-    max-width: 20rem;
+    max-width: 16rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

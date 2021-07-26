@@ -56,16 +56,6 @@ else
                 @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList,
                     new { @class = "custom-select mx-2" })
 
-                <!--
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
-                    new
-                         {
-                             @id = "searchString",
-                             @class = "form-control",
-                             @placeholder = "Search"
-                         })
-                -->
-
                 <div class="input-group search-input-group">
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
                         new
