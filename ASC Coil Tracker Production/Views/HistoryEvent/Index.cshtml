@@ -19,7 +19,7 @@ else
             <p>New records can be added through the Add Record button or details page for a given coil.</p>
         </div>
         <div class="col-md-6">
-            @using (Ajax.BeginForm("Index", "HistoryEvent", new AjaxOptions { HttpMethod = "Get" },
+            @using (Html.BeginForm("Index", "HistoryEvent", FormMethod.Get,
                 new { @class = "form-inline justify-content-end" }))
             {
                 <!-- hidden current fields -->
