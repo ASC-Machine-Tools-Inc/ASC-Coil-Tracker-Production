@@ -231,3 +231,12 @@ tr:hover {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* Details card */
+.details-card-header {
+    font-size: 1.25rem;
+}
+
+.coil-history-header {
+    padding: 0 1rem 0.5rem;
+}
