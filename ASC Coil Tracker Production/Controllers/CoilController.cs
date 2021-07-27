@@ -5,9 +5,15 @@ using PrintLogic;
 using System;
 using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using iText.Html2pdf;
+using System.Web.Helpers;
 
 namespace ASC_Coil_Tracker_Production.Controllers
 {
@@ -367,6 +373,21 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 }
             }
             return currentLength;
+        }
+
+        // Save the current table as a PDF.
+        // POST: Coil/Export
+        [HttpPost]
+        public ActionResult Export()
+        {
+            string tableHtml = Request.Unvalidated().Form["tableHtml"];
+            Debugger.Break();
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                HtmlConverter.ConvertToPdf(tableHtml, stream);
+                return File(stream.ToArray(), "application/pdf", "Table.pdf");
+            }
         }
     }
 }
