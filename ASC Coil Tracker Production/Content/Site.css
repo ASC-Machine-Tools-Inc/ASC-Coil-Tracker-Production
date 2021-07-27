@@ -242,7 +242,17 @@ div.search-input-group {
 }
 
 /* Details card */
-.details-card-header {
+div.details-card {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+div.details-card-header {
+    background-color: #e8e8e8;
+    border-bottom: 2px solid black;
+}
+
+div.details-card-header-row {
     font-size: 1.25rem;
 }
 
