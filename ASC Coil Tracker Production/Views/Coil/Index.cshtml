@@ -2,6 +2,9 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
+<!-- testing -->
+<link href="~/Content/print.css" rel="stylesheet" type="text/css" />
+
 @{ ViewBag.Title = "Index"; }
 
 <!-- Show prompt if not logged in -->
@@ -101,13 +104,13 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().GAUGE)
                     </th>
-                    <th>
+                    <th class="print-hide">
                         @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
                     </th>
-                    <th>
+                    <th class="print-hide">
                         @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
                     </th>
-                    <th>
+                    <th class="print-hide">
                         @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
                     </th>
                     <th>
@@ -116,13 +119,13 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
                     </th>
-                    <th>
+                    <th class="print-hide">
                         @Html.DisplayNameFor(model => model.FirstOrDefault().CUSTOMER)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
                     </th>
-                    <th></th>
+                    <th class="print-hide"></th>
                 </tr>
             </thead>
             <tbody>
@@ -130,7 +133,8 @@ else
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
+                            @Html.ActionLink((item.ID).ToString(), "Details",
+                                "Coil", new { id = item.ID }, null)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.COLOR)
@@ -141,13 +145,13 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.GAUGE)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             @Html.DisplayFor(modelItem => item.WIDTH)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             @Html.DisplayFor(modelItem => item.THICK)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             @Html.DisplayFor(modelItem => item.YIELD)
                         </td>
                         <td>
@@ -156,13 +160,13 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.WEIGHT)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             @Html.DisplayFor(modelItem => item.CUSTOMER)
                         </td>
                         <td class="clamp">
                             @Html.DisplayFor(modelItem => item.NOTES)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             <div class="btn-group d-flex" role="group">
                                 <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
                                     Actions
@@ -237,11 +241,5 @@ else
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
-
-    <!-- Copy table's HTML to export -->
-    <script>
-        function setHtml() {
-            $("#tableHtml").val($("#coilTable")[0].innerHTML);
-        }
-    </script>
+    @Scripts.Render("~/Scripts/helpers/HtmlToPdf.js")
 }

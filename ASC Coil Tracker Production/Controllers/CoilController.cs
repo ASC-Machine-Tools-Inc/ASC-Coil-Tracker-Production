@@ -14,6 +14,9 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using iText.Html2pdf;
 using System.Web.Helpers;
+using iText.Html2pdf.Resolver.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 
 namespace ASC_Coil_Tracker_Production.Controllers
 {
@@ -380,13 +383,18 @@ namespace ASC_Coil_Tracker_Production.Controllers
         [HttpPost]
         public ActionResult Export()
         {
-            string tableHtml = Request.Unvalidated().Form["tableHtml"];
             Debugger.Break();
+            string tableHtml = Request.Unvalidated().Form["tableHtml"];
 
             using (MemoryStream stream = new MemoryStream())
             {
-                HtmlConverter.ConvertToPdf(tableHtml, stream);
-                return File(stream.ToArray(), "application/pdf", "Table.pdf");
+                // Set CSS to apply to HTML.
+                ConverterProperties properties = new ConverterProperties();
+                properties.SetBaseUri("https://localhost:44346/");
+
+                HtmlConverter.ConvertToPdf(tableHtml, stream, properties);
+
+                return File(stream.ToArray(), "application/pdf", "CoilTable.pdf");
             }
         }
     }
