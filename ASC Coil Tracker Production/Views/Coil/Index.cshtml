@@ -2,9 +2,6 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-<!-- testing -->
-<link href="~/Content/print.css" rel="stylesheet" type="text/css" />
-
 @{ ViewBag.Title = "Index"; }
 
 <!-- Show prompt if not logged in -->
@@ -104,7 +101,7 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().GAUGE)
                     </th>
-                    <th class="print-hide">
+                    <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
                     </th>
                     <th class="print-hide">
@@ -145,7 +142,7 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.GAUGE)
                         </td>
-                        <td class="print-hide">
+                        <td>
                             @Html.DisplayFor(modelItem => item.WIDTH)
                         </td>
                         <td class="print-hide">
