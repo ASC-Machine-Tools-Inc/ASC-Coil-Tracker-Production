@@ -390,7 +390,9 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 // Set CSS to apply to HTML.
                 ConverterProperties properties = new ConverterProperties();
-                properties.SetBaseUri("https://localhost:44346/");
+
+                // Change Uri to grab CSS files from the correct location.
+                properties.SetBaseUri(new Uri(Request.Url, Url.Content("~")).ToString());
 
                 HtmlConverter.ConvertToPdf(tableHtml, stream, properties);
 
