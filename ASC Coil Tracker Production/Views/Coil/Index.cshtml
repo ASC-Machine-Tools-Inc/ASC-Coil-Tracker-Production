@@ -77,17 +77,17 @@ else
         </div>
     </div>
 
-    <div class="container-fluid container-table table-responsive p-0">
+    <div id="coilTable" class="container-fluid container-table table-responsive p-0">
         <table class="table m-0">
             <thead>
                 <tr>
                     <th>
                         <a href="@Url.Action("Index",
-                                     new {
-                                         sortOrder = ViewBag.IDSortParm,
-                                         currentFilter = ViewBag.CurrentFilter,
-                                         currentSearchFilter = ViewBag.CurrentSearchFilter,
-                                         currentLengthFilter = ViewBag.CurrentLengthFilter})"
+                                 new {
+                                     sortOrder = ViewBag.IDSortParm,
+                                     currentFilter = ViewBag.CurrentFilter,
+                                     currentSearchFilter = ViewBag.CurrentSearchFilter,
+                                     currentLengthFilter = ViewBag.CurrentLengthFilter})"
                            class="a-sort">
                             ID<i class="fa fa-fw fa-sort"></i>
                         </a>
@@ -104,10 +104,10 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().WIDTH)
                     </th>
-                    <th>
+                    <th class="print-hide">
                         @Html.DisplayNameFor(model => model.FirstOrDefault().THICK)
                     </th>
-                    <th>
+                    <th class="print-hide">
                         @Html.DisplayNameFor(model => model.FirstOrDefault().YIELD)
                     </th>
                     <th>
@@ -116,13 +116,13 @@ else
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().WEIGHT)
                     </th>
-                    <th>
+                    <th class="print-hide">
                         @Html.DisplayNameFor(model => model.FirstOrDefault().CUSTOMER)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().NOTES)
                     </th>
-                    <th></th>
+                    <th class="print-hide"></th>
                 </tr>
             </thead>
             <tbody>
@@ -130,7 +130,8 @@ else
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ID)
+                            @Html.ActionLink((item.ID).ToString(), "Details",
+                                "Coil", new { id = item.ID }, null)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.COLOR)
@@ -144,10 +145,10 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.WIDTH)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             @Html.DisplayFor(modelItem => item.THICK)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             @Html.DisplayFor(modelItem => item.YIELD)
                         </td>
                         <td>
@@ -156,13 +157,13 @@ else
                         <td>
                             @Html.DisplayFor(modelItem => item.WEIGHT)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             @Html.DisplayFor(modelItem => item.CUSTOMER)
                         </td>
                         <td class="clamp">
                             @Html.DisplayFor(modelItem => item.NOTES)
                         </td>
-                        <td>
+                        <td class="print-hide">
                             <div class="btn-group d-flex" role="group">
                                 <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
                                     Actions
@@ -184,7 +185,7 @@ else
                                         <i class="fas fa-plus"></i>
                                         Add Record
                                     </a>
-                                    <!-- delete functionality disabled for coils
+                                    <!-- Delete functionality disabled for coils.
                                     <a href="@Url.Action("Delete", new {id = item.ID})" class="dropdown-item">
                                         <i class="fas fa-trash"></i>
                                         Delete
@@ -201,24 +202,41 @@ else
 
     <br />
 
-    <span>
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-        of
-        @Model.PageCount
-    </span>
+    <!-- Page navigation and table exporting. -->
+    <div class="row">
+        <div class="col">
+            <span>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                of
+                @Model.PageCount
+            </span>
 
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-        new
-        {
-            page,
-            sortOrder = ViewBag.CurrentSort,
-            currentFilter = ViewBag.CurrentFilter,
-            currentSearchFilter = ViewBag.CurrentSearchFilter,
-            currentLengthFilter = ViewBag.CurrentLengthFilter
-        }))
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new
+                {
+                    page,
+                    sortOrder = ViewBag.CurrentSort,
+                    currentFilter = ViewBag.CurrentFilter,
+                    currentSearchFilter = ViewBag.CurrentSearchFilter,
+                    currentLengthFilter = ViewBag.CurrentLengthFilter
+                }))
+        </div>
+        <div class="col text-right">
+            @using (Html.BeginForm("Export", "Coil", FormMethod.Post,
+                new
+                {
+                    @id = "pdfForm"
+                }))
+            {
+                <input type="hidden" id="tableHtml" name="tableHtml" />
+                <button type="submit" class="btn btn-primary" onclick="setHtml()">Export Table</button>
+            }
+        </div>
+    </div>
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
+    @Scripts.Render("~/Scripts/helpers/HtmlToPdf.js")
 }
