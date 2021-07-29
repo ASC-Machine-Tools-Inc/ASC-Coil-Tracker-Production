@@ -5,7 +5,7 @@
 }
 
 <h2>Create New Coil Record</h2>
-<h3 class="float-right">Coil Calculator</h3>
+<h3 class="float-sm-right">Coil Calculator</h3>
 <h5>Required fields: Color/Finish, Material, Gauge</h5>
 
 <hr />
@@ -112,12 +112,18 @@
     <div class="col-sm-2 align-self-center text-center">
         <h4>Copy Fields</h4>
         <div class="btn-group-vertical">
-            <!-- onclick="this.blur()" removes outline from clicking button -->
-            <button id="swapRightBtn" type="button" class="btn btn-outline-secondary" onclick="this.blur()">
-                <i class="fas fa-arrow-right"></i>
-            </button>
+            <!-- onclick="this.blur()" removes outline from clicking button.
+            The display classes change which icon is shown on breakpoints,
+            so on smaller screens the swap buttons show as up/down and
+            on bigger ones left/right, to match the orientation of the columns.
+            -->
             <button id="swapLeftBtn" type="button" class="btn btn-outline-secondary" onclick="this.blur()">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-left d-none d-sm-block"></i>
+                <i class="fas fa-arrow-up d-sm-none"></i>
+            </button>
+            <button id="swapRightBtn" type="button" class="btn btn-outline-secondary" onclick="this.blur()">
+                <i class="fas fa-arrow-right d-none d-sm-block"></i>
+                <i class="fas fa-arrow-down d-sm-none"></i>
             </button>
         </div>
     </div>
@@ -125,7 +131,7 @@
         <div class="form-horizontal">
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="densitySelect" class="float-right">Density</label>
+                    <label for="densitySelect" class="float-sm-right">Density</label>
                 </div>
                 <div class="col-md-6">
                     @Html.DropDownList("SearchFilter", new List<SelectListItem>
@@ -134,79 +140,79 @@
                            new SelectListItem { Text = "Aluminum", Value = "ALUM" },
                            new SelectListItem { Text = "Copper", Value = "COPPER" }
                        },
-                       new { @id = "densitySelect", @class = "custom-select float-right qty" })
+                       new { @id = "densitySelect", @class = "custom-select float-sm-right qty" })
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="idInput" class="float-right">ID (in)</label>
+                    <label for="idInput" class="float-sm-right">ID (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input id="idInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="odInput" class="float-right">OD (in)</label>
-                </div>
-                <div class="col-md-6">
-                    <input id="odInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
+                    <input id="idInput" type="number" class="form-control float-sm-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="widthInput" class="float-right">Width (in)</label>
+                    <label for="odInput" class="float-sm-right">OD (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input id="widthInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="thicknessInput" class="float-right">Thickness (in)</label>
-                </div>
-                <div class="col-md-6">
-                    <input id="thicknessInput" type="number" class="form-control float-right qty" step="0.001" min="0.001">
+                    <input id="odInput" type="number" class="form-control float-sm-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="piwInput" class="float-right">PIW (lbs)</label>
+                    <label for="widthInput" class="float-sm-right">Width (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input id="piwInput" type="number" class="form-control float-right" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="lengthInput" class="float-right">Length (ft)</label>
-                </div>
-                <div class="col-md-6">
-                    <input id="lengthInput" type="number" class="form-control float-right" readonly>
+                    <input id="widthInput" type="number" class="form-control float-sm-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="areaInput" class="float-right">Area (sq ft)</label>
+                    <label for="thicknessInput" class="float-sm-right">Thickness (in)</label>
                 </div>
                 <div class="col-md-6">
-                    <input id="areaInput" type="number" class="form-control float-right" readonly>
+                    <input id="thicknessInput" type="number" class="form-control float-sm-right qty" step="0.001" min="0.001">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="weightInput" class="float-right">Weight (lbs)</label>
+                    <label for="piwInput" class="float-sm-right">PIW (lbs)</label>
                 </div>
                 <div class="col-md-6">
-                    <input id="weightInput" type="number" class="form-control float-right" readonly>
+                    <input id="piwInput" type="number" class="form-control float-sm-right" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="lengthInput" class="float-sm-right">Length (ft)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="lengthInput" type="number" class="form-control float-sm-right" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="areaInput" class="float-sm-right">Area (sq ft)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="areaInput" type="number" class="form-control float-sm-right" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="weightInput" class="float-sm-right">Weight (lbs)</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="weightInput" type="number" class="form-control float-sm-right" readonly>
                 </div>
             </div>
         </div>

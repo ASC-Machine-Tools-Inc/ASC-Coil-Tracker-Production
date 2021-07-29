@@ -14,13 +14,18 @@ else
 {
     <div class="row mb-3">
         <div class="col-md-4">
-            <a href="@Url.Action("Create")" class="btn btn-primary mb-1">
+            <a href="@Url.Action("Create")" class="btn btn-primary my-2">
                 <i class="fas fa-plus"></i>
                 Create New Coil Record
             </a>
         </div>
         <div class="col-md-4">
-            @using (Html.BeginForm("Index", "Coil", FormMethod.Get))
+            @using (Html.BeginForm("Index", "Coil", FormMethod.Get,
+                new
+                {
+                    @id = "filterForm",
+                    @class = "my-2"
+                }))
             {
                 <!-- hidden current fields -->
                 @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort)
@@ -35,7 +40,7 @@ else
                     new
                          {
                              @id = "lengthFilter",
-                             @class = "custom-select mx-2"
+                             @class = "custom-select"
                          })
             }
         </div>
@@ -44,7 +49,7 @@ else
                 new
                 {
                     @id = "searchForm",
-                    @class = "form-inline justify-content-end"
+                    @class = "form-inline justify-content-md-end"
                 }))
             {
                 <!-- hidden current fields -->
@@ -54,7 +59,7 @@ else
                 ;
 
                 @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList,
-                    new { @class = "custom-select mx-2" })
+                    new { @class = "custom-select m-2" })
 
                 <div class="input-group search-input-group">
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
