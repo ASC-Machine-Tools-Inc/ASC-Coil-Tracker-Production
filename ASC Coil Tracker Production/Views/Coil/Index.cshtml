@@ -29,11 +29,8 @@ else
             {
                 <!-- hidden current fields -->
                 @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort)
-                ;
                 @Html.Hidden("currentFilter", (object)ViewBag.CurrentFilter)
-                ;
                 @Html.Hidden("currentSearchFilter", (object)ViewBag.CurrentSearchFilter)
-                ;
 
                 <label for="lengthFilter">Show:</label>
                 @Html.DropDownList("LengthFilter", (SelectList)ViewBag.LengthList,
@@ -54,9 +51,7 @@ else
             {
                 <!-- hidden current fields -->
                 @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort)
-                ;
                 @Html.Hidden("currentLengthFilter", (object)ViewBag.CurrentLengthFilter)
-                ;
 
                 @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList,
                     new { @class = "custom-select m-2" })
@@ -190,6 +185,7 @@ else
                                         <i class="fas fa-plus"></i>
                                         Add Record
                                     </a>
+
                                     <!-- Delete functionality disabled for coils.
                                     <a href="@Url.Action("Delete", new {id = item.ID})" class="dropdown-item">
                                         <i class="fas fa-trash"></i>
