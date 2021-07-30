@@ -19,14 +19,32 @@ else
             <p>New records can be added through the Add Record button or details page for a given coil.</p>
         </div>
         <div class="col-md-6">
-            @using (Ajax.BeginForm("Index", "HistoryEvent", new AjaxOptions { HttpMethod = "Get" },
+            @using (Html.BeginForm("Index", "HistoryEvent", FormMethod.Get,
                 new { @class = "form-inline justify-content-end" }))
             {
                 <!-- hidden current fields -->
                 @Html.Hidden("sortOrder", (object)ViewBag.CurrentSort);
 
-                @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList, new { @class = "custom-select mx-2" })
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @id = "searchString", @class = "form-control", @placeholder = "Search" })
+                @Html.DropDownList("SearchFilter", (SelectList)ViewBag.SearchList,
+                    new { @class = "custom-select mx-2" })
+
+                <div class="input-group search-input-group">
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+                        new
+                        {
+                            @id = "searchString",
+                            @class = "form-control border-right-0",
+                            @placeholder = "Search"
+                        })
+
+                    <!-- Search button -->
+                    <span class="input-group-append">
+                        <button type="submit"
+                                class="btn btn-outline-secondary border-left-0">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
             }
             @Html.ValidationMessage("DateFormatError", new { @class = "text-danger float-right" })
         </div>
@@ -121,7 +139,10 @@ else
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
-    @Scripts.Render("~/Scripts/helpers/OnFilterChange.js")
+    @Scripts.RenderFormat("<script type='text/javascript' asp-append-version='true' src='{0}'></script>",
+"~/bundles/jqueryval")
+    @Scripts.RenderFormat("<script type='text/javascript' asp-append-version='true' src='{0}'></script>",
+"~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.RenderFormat("<script type='text/javascript' asp-append-version='true' src='{0}'></script>",
+"~/Scripts/helpers/OnFilterChange.js")
 }

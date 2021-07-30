@@ -85,7 +85,7 @@ input[readonly].form-control {
     align-self: center;
     margin: 5% 0;
     border: 0;
-    border-radius: 27.5px;
+    border-radius: 5px;
     box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
     overflow: hidden;
 }
@@ -226,8 +226,36 @@ tr:hover {
     }
 
 .clamp {
-    max-width: 20rem;
+    max-width: 16rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+div.search-input-group {
+    flex-wrap: initial;
+}
+
+.search-input-group button {
+    background: white;
+    border: 1px solid #ced4da;
+}
+
+/* Details card */
+div.details-card {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+div.details-card-header {
+    background-color: #e8e8e8;
+    border-bottom: 2px solid black;
+}
+
+div.details-card-header-row {
+    font-size: 1.25rem;
+}
+
+.coil-history-header {
+    padding: 0 1rem 0.5rem;
 }

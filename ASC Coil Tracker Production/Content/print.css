@@ -1,0 +1,20 @@
+﻿/* Used in HtmlToPdf.js to specify custom styles for printing */
+body {
+    background-image: none;
+}
+
+table {
+    overflow-y: auto;
+}
+
+.print-hide {
+    display: none;
+}
+
+#print-table {
+    width: 700px;
+}
+
+.clamp {
+    width: 4rem;
+}

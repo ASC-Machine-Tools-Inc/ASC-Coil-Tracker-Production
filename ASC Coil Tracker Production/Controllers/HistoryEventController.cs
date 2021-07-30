@@ -4,6 +4,7 @@ using PagedList;
 using System;
 using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -140,6 +141,13 @@ namespace ASC_Coil_Tracker_Production.Controllers
         {
             ViewBag.CoilID = coilID;
 
+            // Grab the coil's current length for reference.
+            var coilToUpdate = db.Coils.Find(coilID);
+            string length = coilToUpdate.LENGTH.ToString();
+            ViewBag.CurrLength = length.Equals("") ?
+                "Warning: No length currently set for this coil." :
+                "Current coil length: " + length;
+
             var model = new COILTABLEHISTORY();
             model.DATE = DateTime.Today;
             return View(model);
@@ -156,13 +164,21 @@ namespace ASC_Coil_Tracker_Production.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    // Update coil's length
-                    var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+                    // Update coil's length.
+                    COILTABLE coilToUpdate = db.Coils.Find(historyEvent.COILID);
                     if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
                     {
+                        // Check that we actually have enough length to use up.
                         if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH)
                         {
                             ModelState.AddModelError("AmountUsedGreaterThanLengthError", "Amount used cannot be greater than remaining coil length!");
+
+                            // Grab the coil's current length for reference on validation error.
+                            string length = coilToUpdate.LENGTH.ToString();
+                            ViewBag.CurrLength = length.Equals("") ?
+                                "Warning: No length currently set for this coil." :
+                                "Current coil length: " + length;
+
                             return View(historyEvent);
                         }
 
@@ -193,6 +209,14 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             COILTABLEHISTORY historyEvent = db.History.Find(id);
+
+            // Grab the coil's current length for reference.
+            var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+            string length = coilToUpdate.LENGTH.ToString();
+            ViewBag.CurrLength = length.Equals("") ?
+                "Warning: No length currently set for this coil." :
+                "Current coil length: " + length;
+
             if (historyEvent == null)
             {
                 return HttpNotFound();
@@ -214,14 +238,20 @@ namespace ASC_Coil_Tracker_Production.Controllers
 
             COILTABLEHISTORY historyEvent = db.History.Find(id);
 
+            // Grab the coil's current length for reference.
+            var coilToUpdate = db.Coils.Find(historyEvent.COILID);
+            string length = coilToUpdate.LENGTH.ToString();
+            ViewBag.CurrLength = length.Equals("") ?
+                "Warning: No length currently set for this coil." :
+                "Current coil length: " + length;
+
             int oldAmountUsed = (int)historyEvent.AMOUNTUSED.GetValueOrDefault();
             if (TryUpdateModel(historyEvent, "",
-               new string[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES", "PURPOSE" }))
+               new[] { "DATE", "AMOUNTUSED", "JOBNUMBER", "NOTES", "PURPOSE" }))
             {
                 try
                 {
                     // Update coil's length
-                    var coilToUpdate = db.Coils.Find(historyEvent.COILID);
                     if (coilToUpdate != null && historyEvent.AMOUNTUSED != null)
                     {
                         if ((int)historyEvent.AMOUNTUSED > coilToUpdate.LENGTH + oldAmountUsed)

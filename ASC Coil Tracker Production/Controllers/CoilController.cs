@@ -5,9 +5,18 @@ using PrintLogic;
 using System;
 using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using iText.Html2pdf;
+using System.Web.Helpers;
+using iText.Html2pdf.Resolver.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 
 namespace ASC_Coil_Tracker_Production.Controllers
 {
@@ -29,31 +38,24 @@ namespace ASC_Coil_Tracker_Production.Controllers
             ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_asc" : "";
 
             // Reset page to 1 if new search string - otherwise, keep filter
-            if (searchString != null)
+            if (searchString != null || searchFilter != null || lengthFilter != null)
             {
                 page = 1;
             }
-            else
+
+            if (searchString == null)
             {
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = searchString;
 
-            if (searchFilter != null)
-            {
-                page = 1;
-            }
-            else
+            if (searchFilter == null)
             {
                 searchFilter = currentSearchFilter;
             }
             ViewBag.CurrentSearchFilter = searchFilter;
 
-            if (lengthFilter != null)
-            {
-                page = 1;
-            }
-            else
+            if (lengthFilter == null)
             {
                 if (currentLengthFilter != null)
                 {
@@ -92,27 +94,28 @@ namespace ASC_Coil_Tracker_Production.Controllers
             };
             ViewBag.SearchList = new SelectList(searchList, "Value", "Text", searchFilter);
 
-            // Get current length for coil
-            var coils = from c in db.Coils
-                        select c;
+            var coils = from c in db.Coils select c;
 
-            // Let user search by given field
+            // Let user search by given field.
             if (!String.IsNullOrEmpty(searchString))
             {
                 switch (searchFilter)
                 {
                     case "ALL":
-                        coils = coils.Where(c =>
-                            c.ID.ToString().Contains(searchString) ||
-                            c.COLOR.Contains(searchString) ||
-                            c.TYPE.Contains(searchString) ||
-                            c.GAUGE.Contains(searchString) ||
-                            c.THICK.ToString().Contains(searchString) ||
-                            c.WIDTH.ToString().Contains(searchString) ||
-                            c.YIELD.ToString().Contains(searchString) ||
-                            c.WEIGHT.ToString().Contains(searchString) ||
-                            c.LENGTH.ToString().Contains(searchString) ||
-                            c.NOTES.Contains(searchString));
+                        coils = coils.Where(
+                            c =>
+                                 c.ID.ToString().Contains(searchString) ||
+                                 c.COLOR.Contains(searchString) ||
+                                 c.TYPE.Contains(searchString) ||
+                                 c.GAUGE.Contains(searchString) ||
+                                 c.THICK.ToString().Contains(searchString) ||
+                                 c.WIDTH.ToString().Contains(searchString) ||
+                                 c.YIELD.ToString().Contains(searchString) ||
+                                 c.WEIGHT.ToString().Contains(searchString) ||
+                                 c.LENGTH.ToString().Contains(searchString) ||
+                                 c.NOTES.Contains(searchString) ||
+                                 c.CUSTOMER.Contains(searchString)
+                        );
                         break;
 
                     case "ID":
@@ -161,12 +164,12 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 }
             }
 
-            // Sort by length filter
-            if (lengthFilter == null || lengthFilter.Equals("NON-DEPLETED"))
+            // Sort by length filter.
+            if (lengthFilter.Equals("NON-DEPLETED"))
             {
                 coils = coils.Where(c => c.LENGTH > 0.0 || c.LENGTH == null);
             }
-            // Else show all coils
+            // Else, show all coils.
 
             switch (sortOrder)
             {
@@ -179,10 +182,11 @@ namespace ASC_Coil_Tracker_Production.Controllers
                     break;
             }
 
-            // Default number of records per page
+            // Default number of records per page.
             int pageSize = 50;
-            // If page not null, set page number to 1, else use page
-            int pageNumber = (page ?? 1);
+            // If page not null, set page number to 1, else use current page.
+            int pageNumber = page ?? 1;
+
             return View(coils.ToPagedList(pageNumber, pageSize));
         }
 
@@ -372,6 +376,28 @@ namespace ASC_Coil_Tracker_Production.Controllers
                 }
             }
             return currentLength;
+        }
+
+        // Save the current table as a PDF.
+        // POST: Coil/Export
+        [HttpPost]
+        public ActionResult Export()
+        {
+            Debugger.Break();
+            string tableHtml = Request.Unvalidated().Form["tableHtml"];
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                // Set CSS to apply to HTML.
+                ConverterProperties properties = new ConverterProperties();
+
+                // Change Uri to grab CSS files from the correct location.
+                properties.SetBaseUri(new Uri(Request.Url, Url.Content("~")).ToString());
+
+                HtmlConverter.ConvertToPdf(tableHtml, stream, properties);
+
+                return File(stream.ToArray(), "application/pdf", "CoilTable.pdf");
+            }
         }
     }
 }

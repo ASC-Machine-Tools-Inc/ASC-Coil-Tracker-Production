@@ -26,10 +26,10 @@ namespace ASC_Coil_Tracker_Production
                       "~/Scripts/bootstrap-toc.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Site.css",
                       "~/Content/bootstrap.min.css",
                       "~/Content/bootstrap-toc.css",
-                      "~/Content/font-awesome.min.css"));
+                      "~/Content/font-awesome.min.css",
+                      "~/Content/Site.css"));
         }
     }
 }
