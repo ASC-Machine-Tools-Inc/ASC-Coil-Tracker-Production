@@ -92,6 +92,8 @@
 </a>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/helpers/DisableEnterSubmit.js")
+    @Scripts.RenderFormat("<script type='text/javascript' asp-append-version='true' src='{0}'></script>",
+"~/bundles/jqueryval")
+    @Scripts.RenderFormat("<script type='text/javascript' asp-append-version='true' src='{0}'></script>",
+"~/Scripts/helpers/DisableEnterSubmit.js")
 }

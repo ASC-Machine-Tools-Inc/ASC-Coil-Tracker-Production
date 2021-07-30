@@ -100,15 +100,15 @@
     <!-- History table -->
     <div class="col-md-6">
         <div class="row justify-content-between align-content-center
-                 align-middle coil-history-header">
-            <h2>History</h2>
+                 align-middle coil-history-header mb-2">
+            <h2 class="m-0">History</h2>
             @if (Session["Email"] != null)
             {
-                <button href="@Url.Action("Create", "HistoryEvent", new {coilID = Model.ID})"
-                        class="btn btn-primary">
+                <a href="@Url.Action("Create", "HistoryEvent", new {coilID = Model.ID})"
+                   class="btn btn-primary">
                     <i class="fas fa-plus"></i>
                     Create New History Record
-                </button>
+                </a>
             }
         </div>
 
@@ -149,15 +149,15 @@
                                         Actions
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a href="@Url.Action("Edit", new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
+                                        <a href="@Url.Action("Edit", "HistoryEvent",new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
                                             <i class="fas fa-edit"></i>
                                             Edit
                                         </a>
-                                        <a href="@Url.Action("Details", new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
+                                        <a href="@Url.Action("Details", "HistoryEvent",new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
                                             <i class="fas fa-info-circle"></i>
                                             Details
                                         </a>
-                                        <a href="@Url.Action("Delete", new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
+                                        <a href="@Url.Action("Delete", "HistoryEvent",new {id = item.ID})" class="btn btn-outline-primary dropdown-item">
                                             <i class="fas fa-trash"></i>
                                             Delete
                                         </a>

@@ -36,6 +36,8 @@
                 @Html.EditorFor(model => model.AMOUNTUSED, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AMOUNTUSED, "", new { @class = "text-danger" })
                 @Html.ValidationMessage("AmountUsedGreaterThanLengthError", new { @class = "text-danger" })
+
+                @Html.Display((string)ViewBag.CurrLength)
             </div>
         </div>
 
